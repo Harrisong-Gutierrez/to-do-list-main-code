@@ -1,0 +1,129 @@
+.main-container-to-do-list {
+    background-color: $background-green-lite;
+    height: auto;
+    width: 730px;
+    border-radius: 16px;
+    border: 2px;
+   
+}
+
+.header-box {
+    width: 670px;
+    height: 87px;
+    border-radius: 8px;
+    padding: 24px;
+    background-color: $background-green;
+}
+
+.p-header {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38.4px;
+    color: $text-white;
+    font-family: inter;
+}
+
+.input-to-do {
+    background-color: $background-white;
+    width: 524px;
+    height: 68px;
+    border-radius: 8px 0 0 8px;
+    border: 2px solid black;
+    border-width: 2px 0 2px 2px;
+}
+
+.button-to-do {
+    background-color: $background-yellow;
+    border: 2px;
+    height: 68px;
+    width: 146px;
+    color: $text-white;
+    font-size: 24px;
+    font-weight: 400;
+    border-radius:0 8px 8px 0;
+}
+
+form.form-principal-container {
+    height: 68px;
+}
+
+.section-form-to-do {
+    display: flex;
+    justify-content: center;
+}
+
+
+.list-custom {
+    width: 670px;
+    height: 76px; 
+    border: 2px solid $boreder-list-color;
+}
+
+#list-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 33px;
+    margin-bottom: 33px;
+}
+
+.list-custom-dark {
+    background-color: $background-list-color;
+}
+
+.button-edit-custom {
+    width: 67px;
+    height: 52px;
+    padding: 16px, 20px, 16px, 24px;
+    background-color: $button-edit-color;
+    border-radius: 8px;
+    margin-right: 10px;
+    color: $text-white;
+}
+
+.button-danger-custom {
+    width: 67px;
+    height: 52px;
+    padding: 16px, 20px, 16px, 24px;
+    background-color: $button-trash-color;
+    border-radius: 8px;
+    margin-right: 10px;
+    color: $text-white;
+}
+
+
+.icon-edit {
+    font-size: 21px;
+}
+
+.icon-trash {
+    font-size: 21PX;
+}
+
+.radio-task {
+    font-size: 20px;
+    font-weight: 900;
+    margin-right: 33px;
+    border-radius: 90px;
+}
+
+
+
+
+
+.checkbox input[type="checkbox"] {
+  display: none; /* Oculta el checkbox nativo */
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 50%; /* Aplica el borde redondeado */
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */
+}

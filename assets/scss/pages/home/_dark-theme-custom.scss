@@ -1,0 +1,30 @@
+
+#toggle {
+    display: none;
+} 
+
+.form-check-label {
+    font-size: 24px;
+    cursor: pointer;
+    color: purple;
+}
+
+.dark-body  {
+    background-color: $background-body-dark;
+    transition: all 1.5s ease;
+}
+
+.dark-main-box-to-do {
+    background-color:$background-main-box-dark;
+    transition: all 1.5s ease;
+    width: 730px;
+    border-radius: 16px;
+    border: 2px;
+    height: 100%;
+    margin-top: 15%;
+    margin-bottom: 100px;
+}
+
+.dark-header-box-custom {
+    background-color: $dark-header-box;
+}

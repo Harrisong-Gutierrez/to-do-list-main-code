@@ -9446,8 +9446,8 @@ input.input-to-do {
 
 input.input-edit-task {
   background-color: white;
-  width: 326px;
-  height: 68px;
+  width: 488px;
+  height: 52px;
   border-radius: 8px 0 0 8px;
   border: 2px solid black;
   border-width: 2px 0 2px 2px;
@@ -9456,7 +9456,7 @@ input.input-edit-task {
 button.button-update-task {
   background-color: #f89b1c;
   border: 2px;
-  height: 68px;
+  height: 52px;
   width: 146px;
   color: white;
   font-size: 24px;
@@ -9479,5 +9479,36 @@ label.label-task-to-do {
   max-width: 433px;
   overflow: auto;
   white-space: nowrap; }
+
+.input-edit {
+  display: flex; }
+
+.header-box-custom {
+  justify-content: space-between; }
+
+#toggle {
+  display: none; }
+
+.form-check-label {
+  font-size: 24px;
+  cursor: pointer;
+  color: purple; }
+
+.dark-body {
+  background-color: #212f3c;
+  transition: all 1.5s ease; }
+
+.dark-main-box-to-do {
+  background-color: #376184;
+  transition: all 1.5s ease;
+  width: 730px;
+  border-radius: 16px;
+  border: 2px;
+  height: 100%;
+  margin-top: 15%;
+  margin-bottom: 100px; }
+
+.dark-header-box-custom {
+  background-color: #1c3041; }
 
 /*# sourceMappingURL=main.css.map */

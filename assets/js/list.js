@@ -19,6 +19,7 @@ function renderList() {
 
     const listItem = document.createElement('li');
     listItem.className = 'list-custom list-group-item d-flex justify-content-between align-items-center';
+    listItem.id = 'list-item-' + index; // Nuevo ID para el listItem
 
     if (index % 2 === 1) {
       listItem.classList.add('list-custom-dark');
@@ -121,26 +122,26 @@ loadTasksFromLocalStorage();
 renderList();
 
 function editTask(task, index) {
-  const inputEditContainer = document.getElementById('input-edit');
-  inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
+  const listItem = document.getElementById('list-item-' + index);
+  listItem.innerHTML = ''; // Vaciar el contenido del listItem
 
   const inputEdit = document.createElement('input');
   inputEdit.type = 'text';
   inputEdit.value = task;
   inputEdit.className = 'input-edit-task';
-  inputEditContainer.appendChild(inputEdit);
 
   const updateButton = document.createElement('button');
   updateButton.className = 'button-update-task';
   updateButton.textContent = 'Update';
-  inputEditContainer.appendChild(updateButton);
+
+  listItem.appendChild(inputEdit);
+  listItem.appendChild(updateButton);
 
   updateButton.addEventListener('click', function () {
     const updatedTask = inputEdit.value.trim();
     if (updatedTask !== '') {
       tasks[index].text = updatedTask; // Actualizar el texto de la tarea en el objeto de tarea
       renderList();
-      inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
     }
   });
 
@@ -150,7 +151,6 @@ function editTask(task, index) {
       if (updatedTask !== '') {
         tasks[index].text = updatedTask; // Actualizar el texto de la tarea en el objeto de tarea
         renderList();
-        inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
       }
     }
   });

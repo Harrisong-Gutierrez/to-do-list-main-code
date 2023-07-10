@@ -9310,7 +9310,7 @@ textarea.form-control-lg {
   font-weight: 400; }
 
 body.body-principal-class {
-  height: 936px;
+  height: auto;
   width: 100%;
   display: flex;
   align-items: center;
@@ -9321,24 +9321,29 @@ body.body-principal-class {
 
 .main-container-to-do-list {
   background-color: #f6f6f6;
-  height: auto;
   width: 730px;
   border-radius: 16px;
-  border: 2px; }
+  border: 2px;
+  height: 100%;
+  margin-top: 15%;
+  margin-bottom: 100px; }
 
 .header-box {
   width: 670px;
   height: 87px;
   border-radius: 8px;
   padding: 24px;
-  background-color: #928e8e; }
+  background-color: #928e8e;
+  align-items: center; }
 
 .p-header {
   font-weight: 700;
   font-size: 32px;
   line-height: 38.4px;
   color: white;
-  font-family: inter; }
+  font-family: inter;
+  display: flex;
+  margin: 2px; }
 
 .input-to-do {
   background-color: white;
@@ -9366,7 +9371,7 @@ form.form-principal-container {
   justify-content: center; }
 
 .list-custom {
-  width: 670px;
+  width: auto;
   height: 76px;
   border: 2px solid #d9d9d9; }
 
@@ -9426,5 +9431,53 @@ form.form-principal-container {
 .checkbox input[type="checkbox"]:checked + .custom-checkbox {
   background-color: #000;
   /* Cambia el color de fondo cuando el checkbox está marcado */ }
+
+.label-task-to-do {
+  font-weight: 400;
+  text-align: center;
+  font-size: 20px;
+  line-height: 20px; }
+
+input.input-to-do {
+  padding-top: 8px; }
+
+#input-edit {
+  margin-left: 1rem; }
+
+input.input-edit-task {
+  background-color: white;
+  width: 326px;
+  height: 68px;
+  border-radius: 8px 0 0 8px;
+  border: 2px solid black;
+  border-width: 2px 0 2px 2px;
+  padding-top: 8px; }
+
+button.button-update-task {
+  background-color: #f89b1c;
+  border: 2px;
+  height: 68px;
+  width: 146px;
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+  border-radius: 0 8px 8px 0; }
+
+.buttons {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-left: 31rem; }
+
+.checkbox {
+  display: flex; }
+
+ul#list-to-do {
+  width: 670PX; }
+
+label.label-task-to-do {
+  max-width: 433px;
+  overflow: auto;
+  white-space: nowrap; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,3 +1,5 @@
+// components/form.js
+
 function renderForm() {
   const form = document.createElement('form');
   form.className = 'form-principal-container';

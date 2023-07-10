@@ -1,15 +1,15 @@
-// components/list.js
-
 // Array de tareas
-const tasks = [];
-console.log(tasks)
+let tasks = [];
+
+// Contador de tareas
+var taskCounter = 0;
 
 // Función para renderizar el componente List
 function renderList() {
   const container = document.getElementById('list-container');
   container.innerHTML = ''; // Vaciar el contenido del contenedor antes de renderizar la lista
-
   const list = document.createElement('ul');
+  list.id = 'list-to-do';
   list.className = 'list-group';
 
   tasks.forEach(function (task, index) {
@@ -26,24 +26,36 @@ function renderList() {
 
     const checkboxDiv = document.createElement('div');
     checkboxDiv.className = 'checkbox';
-
     const checkbox = document.createElement('div');
     checkbox.type = 'radio';
     checkbox.className = '<fa-sharp fa-solid fa-circle-check radio-task';
     checkbox.id = 'task-' + index;
+
+    // Marcar o desmarcar el texto al hacer clic en el checkbox
     checkbox.addEventListener('click', function () {
       checkbox.checked = !checkbox.checked;
       if (checkbox.checked) {
         label.style.textDecoration = 'line-through';
+        tasks[index].completed = true; // Actualizar el estado de marcado en el objeto de tarea
       } else {
         label.style.textDecoration = 'none';
+        tasks[index].completed = false; // Actualizar el estado de marcado en el objeto de tarea
       }
+      saveTasksToLocalStorage(); // Guardar el estado actualizado de las tareas
     });
     checkboxDiv.appendChild(checkbox);
 
     const label = document.createElement('label');
     label.htmlFor = 'task-' + index;
-    label.textContent = task;
+    label.textContent = task.text;
+    label.className = 'label-task-to-do';
+
+    // Aplicar el estilo de línea tachada si la tarea está marcada
+    if (task.completed) {
+      checkbox.checked = true;
+      label.style.textDecoration = 'line-through';
+    }
+
     checkboxDiv.appendChild(label);
 
     listItem.appendChild(checkboxDiv);
@@ -57,7 +69,7 @@ function renderList() {
     buttonsDiv.appendChild(editButton);
 
     editButton.addEventListener('click', function () {
-      editTask(task, index);
+      editTask(task.text, index);
     });
 
     const deleteButton = document.createElement('button');
@@ -74,51 +86,77 @@ function renderList() {
   });
 
   container.appendChild(list);
+
+  // Actualizar contador de tareas
+  taskCounter = tasks.length;
+  let element = document.getElementById("couter");
+  element.textContent = taskCounter;
+  console.log('Número de tareas:', taskCounter);
+
+  // Guardar las tareas en el almacenamiento local
+  saveTasksToLocalStorage();
 }
 
 // Función para agregar una nueva tarea a la lista
 function addTaskToList(task) {
-  tasks.push(task);
+  tasks.push({ text: task, completed: false }); // Agregar el estado de marcado inicial como falso
   renderList();
 }
+
+// Función para guardar las tareas en el almacenamiento local
+function saveTasksToLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Función para cargar las tareas desde el almacenamiento local
+function loadTasksFromLocalStorage() {
+  const savedTasks = localStorage.getItem('tasks');
+  tasks = savedTasks ? JSON.parse(savedTasks) : [];
+}
+
+// Llamar a la función para cargar las tareas desde el almacenamiento local
+loadTasksFromLocalStorage();
 
 // Llamar a la función para renderizar el componente List
 renderList();
 
 function editTask(task, index) {
-  const input = document.querySelector('.input-to-do');
-  const addButton = document.getElementById('submit-button-id-icon');
+  const inputEditContainer = document.getElementById('input-edit');
+  inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
 
-  input.value = task; // Establece el valor del input con la tarea existente
-  addButton.textContent = 'Update'; // Cambia el texto del botón a "Update"
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.value = task;
+  inputEdit.className = 'input-edit-task';
+  inputEditContainer.appendChild(inputEdit);
 
-  // Agrega un evento submit personalizado al formulario para manejar la actualización de la tarea
-  const form = document.querySelector('.form-principal-container');
-  form.removeEventListener('submit', handleSubmit); // Removemos el evento submit existente para evitar conflictos
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    updateTask(index, input.value); // Llamamos a la función de actualización de tarea
-    input.value = ''; // Limpiamos el valor del input
-    addButton.textContent = 'Submit'; // Restauramos el texto del botón a "Submit"
-    form.removeEventListener('submit', handleSubmit); // Removemos el evento submit personalizado
-    form.addEventListener('submit', handleSubmit); // Volvemos a agregar el evento submit original
+  const updateButton = document.createElement('button');
+  updateButton.className = 'button-update-task';
+  updateButton.textContent = 'Update';
+  inputEditContainer.appendChild(updateButton);
+
+  updateButton.addEventListener('click', function () {
+    const updatedTask = inputEdit.value.trim();
+    if (updatedTask !== '') {
+      tasks[index].text = updatedTask; // Actualizar el texto de la tarea en el objeto de tarea
+      renderList();
+      inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
+    }
   });
-}
 
-function updateTask(index, newTask) {
-  tasks[index] = newTask;
-  renderList();
+  inputEdit.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      const updatedTask = inputEdit.value.trim();
+      if (updatedTask !== '') {
+        tasks[index].text = updatedTask; // Actualizar el texto de la tarea en el objeto de tarea
+        renderList();
+        inputEditContainer.innerHTML = ''; // Vaciar el contenido del contenedor de edición
+      }
+    }
+  });
 }
 
 function deleteTask(index) {
   tasks.splice(index, 1);
   renderList();
-}
-
-function handleSubmit(event) {
-  event.preventDefault();
-  const input = document.querySelector('.input-to-do');
-  const task = input.value;
-  addTaskToList(task);
-  input.value = '';
 }

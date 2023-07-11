@@ -16,6 +16,13 @@ toggle.addEventListener('change',(event)=> {
      const myelemento_header_box = document.getElementById('header-box')
      myelemento_header_box.classList.toggle('dark-header-box-custom')
 
+     const myelemento_list_box = document.querySelector('li')
+     myelemento_list_box.classList.toggle('dark-list-principal-class')
+
+  
+
+
+
 
     if  (checked==true) {
         label_toggle.innerHTML='<i class="fa-solid fa-sun"></i>';

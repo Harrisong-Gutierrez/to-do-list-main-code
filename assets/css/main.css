@@ -9511,4 +9511,12 @@ label.label-task-to-do {
 .dark-header-box-custom {
   background-color: #1c3041; }
 
+.dark-list-principal-class {
+  background-color: #182938;
+  color: white; }
+
+.dark-list-secundary-class {
+  background-color: #4982b4;
+  color: white; }
+
 /*# sourceMappingURL=main.css.map */

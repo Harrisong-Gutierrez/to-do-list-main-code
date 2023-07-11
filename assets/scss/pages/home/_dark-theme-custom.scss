@@ -1,21 +1,20 @@
-
 #toggle {
     display: none;
-} 
+}
 
 .form-check-label {
     font-size: 24px;
     cursor: pointer;
     color: purple;
 }
-
-.dark-body  {
+ 
+.dark-body {
     background-color: $background-body-dark;
     transition: all 1.5s ease;
 }
 
 .dark-main-box-to-do {
-    background-color:$background-main-box-dark;
+    background-color: $background-main-box-dark;
     transition: all 1.5s ease;
     width: 730px;
     border-radius: 16px;
@@ -27,4 +26,14 @@
 
 .dark-header-box-custom {
     background-color: $dark-header-box;
+}
+
+.dark-list-principal-class {
+    background-color: $background-table-dark-principal;
+    color: $text-white;
+}
+
+.dark-list-secundary-class {
+    background-color: $background-table-dark-secundary;
+    color: $text-white;
 }

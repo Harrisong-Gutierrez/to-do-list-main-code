@@ -1,6 +1,8 @@
 // Array de tareas
 let tasks = [];
 
+
+
 // Contador de tareas
 var taskCounter = 0;
 

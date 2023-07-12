@@ -9495,12 +9495,10 @@ label.label-task-to-do {
   color: purple; }
 
 .dark-body {
-  background-color: #212f3c;
-  transition: all 1.5s ease; }
+  background-color: #212f3c; }
 
 .dark-main-box-to-do {
   background-color: #376184;
-  transition: all 1.5s ease;
   width: 730px;
   border-radius: 16px;
   border: 2px;

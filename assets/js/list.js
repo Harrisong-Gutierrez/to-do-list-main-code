@@ -20,18 +20,18 @@ function renderList() {
     }
 
     const listItem = document.createElement('li');
-    listItem.className = 'list-custom list-group-item d-flex justify-content-between align-items-center';
+    listItem.className = 'BodyPrincipal-list-custom-light list-group-item d-flex justify-content-between align-items-center';
     listItem.id = 'list-item-' + index; // Nuevo ID para el listItem
 
     if (index % 2 === 1) {
-      listItem.classList.add('list-custom-dark');
+      listItem.classList.add('BodyPrincipal-list-dark-color');
     }
 
     const checkboxDiv = document.createElement('div');
-    checkboxDiv.className = 'checkbox';
+    checkboxDiv.className = 'BodyPrincipal-checkbox';
     const checkbox = document.createElement('div');
     checkbox.type = 'radio';
-    checkbox.className = '<fa-sharp fa-solid fa-circle-check radio-task';
+    checkbox.className = '<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task';
     checkbox.id = 'task-' + index;
 
     // Marcar o desmarcar el texto al hacer clic en el checkbox
@@ -51,7 +51,7 @@ function renderList() {
     const label = document.createElement('label');
     label.htmlFor = 'task-' + index;
     label.textContent = task.text;
-    label.className = 'label-task-to-do';
+    label.className = 'BodyPrincipal-label-task';
 
     // Aplicar el estilo de línea tachada si la tarea está marcada
     if (task.completed) {
@@ -64,11 +64,11 @@ function renderList() {
     listItem.appendChild(checkboxDiv);
 
     const buttonsDiv = document.createElement('div');
-    buttonsDiv.className = 'buttons';
+    buttonsDiv.className = 'BodyPrincipal-buttons';
 
     const editButton = document.createElement('button');
-    editButton.className = 'button-edit-custom btn btn-outline-primary btn-sm mr-2';
-    editButton.innerHTML = '<i class="icon-edit fas fa-edit"></i>';
+    editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
+    editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
     buttonsDiv.appendChild(editButton);
 
     editButton.addEventListener('click', function () {
@@ -76,8 +76,8 @@ function renderList() {
     });
 
     const deleteButton = document.createElement('button');
-    deleteButton.className = 'button-danger-custom btn btn-outline-danger btn-sm';
-    deleteButton.innerHTML = '<i class="icon-trash fas fa-trash"></i>';
+    deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
+    deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
     buttonsDiv.appendChild(deleteButton);
 
     deleteButton.addEventListener('click', function () {
@@ -130,10 +130,10 @@ function editTask(task, index) {
   const inputEdit = document.createElement('input');
   inputEdit.type = 'text';
   inputEdit.value = task;
-  inputEdit.className = 'input-edit-task';
+  inputEdit.className = 'BodyPrincipal-input-edit-task';
 
   const updateButton = document.createElement('button');
-  updateButton.className = 'button-update-task';
+  updateButton.className = 'BodyPrincipal-button-update-task';
   updateButton.textContent = 'Update';
 
   listItem.appendChild(inputEdit);

@@ -1,59 +1,98 @@
+const toggle = document.getElementById('toggle');
+const body = document.body;
+const mainBox = document.querySelector('main');
+const headerBox = document.getElementById('header-box');
+let taskListItems = document.querySelectorAll('li');
+const labelToggle = document.getElementById('label-toggle');
+const form = document.getElementById('form');
+const taskInput = document.getElementById('task-input');
+
 toggle.addEventListener('change', (event) => {
-    let checked = event.target.checked;
-    console.log(checked);
+  let checked = event.target.checked;
+  console.log(checked);
 
-    document.body.classList.toggle('dark-body');
-    const myelemento_main_box = document.querySelector('main');
-    myelemento_main_box.classList.toggle('dark-main-box-to-do');
-    const myelemento_header_box = document.getElementById('header-box');
-    myelemento_header_box.classList.toggle('dark-header-box-custom');
-    
-    const taskListItems = document.querySelectorAll('li');
-    taskListItems.forEach((item, index) => {
-        if (checked) {
-            item.classList.toggle('dark-list-principal-class');
-            if (index % 2 === 0) {
-                item.classList.add('dark-list-secundary-class');
-            } else {
-                item.classList.remove('dark-list-secundary-class');
-            }
-        } else {
-            item.classList.remove('dark-list-principal-class');
-            item.classList.remove('dark-list-secundary-class');
-        }
+  // Cambiar el estado del modo oscuro
+  if (checked) {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
 
-        // Guardar el estado de los elementos en localStorage
-        localStorage.setItem(`task_${index}_darkListPrincipal`, item.classList.contains('dark-list-principal-class').toString());
-        localStorage.setItem(`task_${index}_darkListSecundary`, item.classList.contains('dark-list-secundary-class').toString());
-    });
-
-    if (checked) {
-        label_toggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        label_toggle.style.color = "orange";
-    } else {
-        label_toggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        label_toggle.style.color = "purple";
-    }
+  // Guardar el estado del modo oscuro en localStorage
+  localStorage.setItem('darkMode', checked.toString());
 });
 
+function enableDarkMode() {
+  body.classList.add('BodyPrincipalDark');
+  mainBox.classList.add('BodyPrincipalDark-dark-main-box');
+  headerBox.classList.add('BodyPrincipalDark-header-box');
+  taskListItems.forEach((item, index) => {
+    item.classList.add('BodyPrincipalDark-dark-list-principal');
+    if (index % 2 === 0) {
+      item.classList.add('BodyPrincipalDark-dark-list-secundary');
+    }
+  });
+  labelToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+  labelToggle.style.color = 'orange';
+}
+
+function disableDarkMode() {
+  body.classList.remove('BodyPrincipalDark');
+  mainBox.classList.remove('BodyPrincipalDark-dark-main-box');
+  headerBox.classList.remove('BodyPrincipalDark-header-box');
+  taskListItems.forEach((item) => {
+    item.classList.remove('BodyPrincipalDark-dark-list-principal');
+    item.classList.remove('BodyPrincipalDark-dark-list-secundary');
+  });
+  labelToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+  labelToggle.style.color = 'purple';
+}
+
+// Comprobar si hay un estado guardado en localStorage al cargar la página
 window.addEventListener('DOMContentLoaded', () => {
-  const taskListItems = document.querySelectorAll('li');
-    taskListItems.forEach((item, index) => {
-        const isDarkListPrincipal = localStorage.getItem(`task_${index}_darkListPrincipal`) === 'true';
-        const isDarkListSecundary = localStorage.getItem(`task_${index}_darkListSecundary`) === 'true';
+  const savedDarkMode = localStorage.getItem('darkMode');
 
-        if (isDarkListPrincipal) {
-            item.classList.add('dark-list-principal-class');
-        } else {
-            item.classList.remove('dark-list-principal-class');
-        }
+  if (savedDarkMode === 'true') {
+    toggle.checked = true;
+    enableDarkMode();
+  } else {
+    toggle.checked = false;
+    disableDarkMode();
+  }
+});
 
-        if (isDarkListSecundary) {
-            item.classList.add('dark-list-secundary-class');
-        } else {
-            item.classList.remove('dark-list-secundary-class');
-        }
-    });
+// Persistir el modo oscuro después de recargar la página
+window.addEventListener('beforeunload', () => {
+  const currentDarkMode = toggle.checked;
+  localStorage.setItem('darkMode', currentDarkMode.toString());
+});
+
+// Escuchar el evento de envío del formulario
+form.addEventListener('submit', (event) => {
+  event.preventDefault(); // Evitar el comportamiento por defecto del formulario
+
+  const taskValue = taskInput.value.trim();
+
+  if (taskValue !== '') {
+    const newTaskItem = document.createElement('li');
+    newTaskItem.textContent = taskValue;
+
+    // Agregar las clases correspondientes según el modo oscuro
+    if (toggle.checked) {
+      newTaskItem.classList.add('BodyPrincipalDark-dark-list-principal');
+      const totalTasks = taskListItems.length;
+      if (totalTasks % 2 === 0) {
+        newTaskItem.classList.add('BodyPrincipalDark-dark-list-secundary');
+      }
+    }
+
+    taskListItems = document.querySelectorAll('li'); // Actualizar la lista de elementos de la tarea
+    form.reset(); // Limpiar el campo de entrada
+
+    // Agregar el nuevo elemento a la lista
+    const taskList = document.getElementById('task-list');
+    taskList.appendChild(newTaskItem);
+  }
 });
 
 

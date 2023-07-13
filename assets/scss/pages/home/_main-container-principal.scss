@@ -1,157 +1,138 @@
-.main-container-to-do-list {
-    background-color: $background-green-lite;
-    width: 730px;
-    border-radius: 16px;
-    border: 2px;
-    height: 100%;
-    margin-top: 15%;
-    margin-bottom: 100px;
+ul#list-to-do {
+    width: 670PX;
 }
 
-.header-box {
-    width: 670px;
-    height: 87px;
-    border-radius: 8px;
-    padding: 24px;
-    background-color: $background-green;
+
+.BodyPrincipal {
+    height: auto;
+    width: 100%;
+    display: flex;
     align-items: center;
-}
-
-.p-header {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 38.4px;
-    color: $text-white;
-    font-family: inter;
-    display: flex;
-    margin: 2px;
-}
-
-.input-to-do {
-    background-color: $background-white;
-    width: 524px;
-    height: 68px;
-    border-radius: 8px 0 0 8px;
-    border: 2px solid black;
-    border-width: 2px 0 2px 2px;
-}
-
-.button-to-do {
-    background-color: $background-yellow;
-    border: 2px;
-    height: 68px;
-    width: 146px;
-    color: $text-white;
-    font-size: 24px;
-    font-weight: 400;
-    border-radius:0 8px 8px 0;
-}
-
-form.form-principal-container {
-    height: 68px;
-}
-
-.section-form-to-do {
-    display: flex;
     justify-content: center;
-}
 
-
-.list-custom {
-    width: auto;
-    height: 76px; 
-    border: 2px solid $boreder-list-color;
-}
-
-#list-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 33px;
-    margin-bottom: 33px;
-}
-
-.list-custom-dark {
-    background-color: $background-list-color;
-}
-
-.button-edit-custom {
-    width: 67px;
-    height: 52px;
-    padding: 16px, 20px, 16px, 24px;
-    background-color: $button-edit-color;
-    border-radius: 8px;
-    margin-right: 10px;
-    color: $text-white;
-}
-
-.button-danger-custom {
-    width: 67px;
-    height: 52px;
-    padding: 16px, 20px, 16px, 24px;
-    background-color: $button-trash-color;
-    border-radius: 8px;
-    margin-right: 10px;
-    color: $text-white;
-}
-
-
-.icon-edit {
-    font-size: 21px;
-}
-
-.icon-trash {
-    font-size: 21PX;
-}
-
-.radio-task {
-    font-size: 20px;
-    font-weight: 900;
-    margin-right: 33px;
-    border-radius: 90px;
-}
-
-
-
-
-
-.checkbox input[type="checkbox"] {
-  display: none; /* Oculta el checkbox nativo */
-}
-
-.custom-checkbox {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ccc;
-  border-radius: 50%; /* Aplica el borde redondeado */
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.checkbox input[type="checkbox"]:checked + .custom-checkbox {
-  background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */
-}
-
-.label-task-to-do {
-    font-weight: 400;
-    text-align: center;
-    font-size: 20px;
-    line-height: 20px;
-}
-
-input {
-    &.input-to-do {
-        padding-top: 8px;
+    &-main-box-light {
+        background-color: $background-green-lite;
+        width: 730px;
+        border-radius: 16px;
+        border: 2px;
+        height: 100%;
+        margin-top: 15%;
+        margin-bottom: 100px;
     }
-}
 
-#input-edit {
-    margin-left: 1rem;
-}
+    &-header-box-light {
+        width: 670px;
+        height: 87px;
+        border-radius: 8px;
+        padding: 24px;
+        background-color: $background-green;
+        align-items: center;
+        margin: 30px;
+    }
 
+    &-counter-text {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 38.4px;
+        color: $text-white;
+        font-family: inter;
+        display: flex;
+        margin: 2px;
+    }
 
-input {
-    &.input-edit-task {
+    &-input-form-light {
+        padding-top: 8px;
+        background-color: $background-white;
+        width: 524px;
+        height: 68px;
+        border-radius: 8px 0 0 8px;
+        border: 2px solid black;
+        border-width: 2px 0 2px 2px;
+    }
+
+    &-button-light {
+        background-color: $background-yellow;
+        border: 2px;
+        height: 68px;
+        width: 146px;
+        color: $text-white;
+        font-size: 24px;
+        font-weight: 400;
+        border-radius: 0 8pxradio-task 8px 0;
+    }
+
+    &-form {
+        height: 68px;
+    }
+
+    &-principal-form {
+        display: flex;
+        justify-content: center;
+    }
+
+    &-list-custom-light {
+        width: auto;
+        height: 76px;
+        border: 2px solid $boreder-list-color;
+    }
+
+    &-list-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 33px;
+        margin-bottom: 33px;
+    }
+
+    &-list-dark-color {
+        background-color: $background-list-color;
+    }
+
+    &-button-edit {
+        width: 67px;
+        height: 52px;
+        padding: 16px, 20px, 16px, 24px;
+        background-color: $button-edit-color;
+        border-radius: 8px;
+        margin-right: 10px;
+        color: $text-white;
+    }
+
+    &-button-delete {
+        width: 67px;
+        height: 52px;
+        padding: 16px, 20px, 16px, 24px;
+        background-color: $button-trash-color;
+        border-radius: 8px;
+        margin-right: 10px;
+        color: $text-white;
+    }
+
+    &-icon-edit {
+        font-size: 21px;
+    }
+
+    &-icon-trash {
+        font-size: 21px;
+    }
+
+    &-radio-task {
+        font-size: 20px;
+        font-weight: 900;
+        margin-right: 33px;
+        border-radius: 90px;
+    }
+
+    &-label-task {
+        max-width: 433px;
+        overflow: auto;
+        white-space: nowrap;
+        font-weight: 400;
+        text-align: center;
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    &-input-edit-task {
         background-color: white;
         width: 488px;
         height: 52px;
@@ -160,11 +141,8 @@ input {
         border-width: 2px 0 2px 2px;
         padding-top: 8px;
     }
-}
 
-
-button {
-    &.button-update-task {
+    &-button-update-task {
         background-color: #f89b1c;
         border: 2px;
         height: 52px;
@@ -174,35 +152,19 @@ button {
         font-weight: 400;
         border-radius: 0 8px 8px 0;
     }
-}
 
+    &-buttons {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        margin-left: 31rem;
+    }
 
+    &-checkbox {
+        display: flex;
+    }
 
-.buttons {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    margin-left: 31rem;
-}
-
-.checkbox {
-    display: flex;
-}
-
-ul#list-to-do {
-    width: 670PX;
-}
-
-label.label-task-to-do {
-    max-width: 433px;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-.input-edit {
-    display: flex;
-}
-
-.header-box-custom {
-    justify-content: space-between;
+    &-header-box-custom {
+          justify-content: space-between;
+    }
 }

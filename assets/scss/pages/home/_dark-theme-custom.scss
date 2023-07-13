@@ -1,39 +1,61 @@
-#toggle {
-    display: none;
+.dark-list-principal-class {}
+
+.dark-list-secundary-class {}
+
+.checkbox input[type="checkbox"] {
+    display: none; /* Oculta el checkbox nativo */
 }
 
-.form-check-label {
-    font-size: 24px;
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50%; /* Aplica el borde redondeado */
+    background-color: #fff;
     cursor: pointer;
-    color: purple;
 }
- 
-.dark-body {
+
+.checkbox input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */
+}
+
+///
+/// 
+/// 
+/// 
+///
+
+.BodyPrincipalDark {
     background-color: $background-body-dark;
-    
-}
 
-.dark-main-box-to-do {
-    background-color: $background-main-box-dark;
-    
-    width: 730px;
-    border-radius: 16px;
-    border: 2px;
-    height: 100%;
-    margin-top: 15%;
-    margin-bottom: 100px;
-}
+    &-form-check-label {
+        font-size: 24px;
+        cursor: pointer;
+        color: purple;
+    }
 
-.dark-header-box-custom {
-    background-color: $dark-header-box;
-}
+    &-dark-main-box {
+        background-color: $background-main-box-dark;
+        width: 730px;
+        border-radius: 16px;
+        border: 2px;
+        height: 100%;
+        margin-top: 15%;
+        margin-bottom: 100px;
+    }
 
-.dark-list-principal-class {
-    background-color: $background-table-dark-principal;
-    color: $text-white;
-}
+    &-header-box {
+        background-color: $dark-header-box;
+    }
 
-.dark-list-secundary-class {
-    background-color: $background-table-dark-secundary;
-    color: $text-white;
+    &-dark-list-principal {
+        background-color: $background-table-dark-principal;
+        color: $text-white;
+    }
+
+    &-dark-list-secundary {
+        background-color: $background-table-dark-secundary;
+        color: $text-white;
+    }
 }

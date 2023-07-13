@@ -1,31 +1,3 @@
-.dark-list-principal-class {}
-
-.dark-list-secundary-class {}
-
-.checkbox input[type="checkbox"] {
-    display: none; /* Oculta el checkbox nativo */
-}
-
-.custom-checkbox {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    border-radius: 50%; /* Aplica el borde redondeado */
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.checkbox input[type="checkbox"]:checked + .custom-checkbox {
-    background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */
-}
-
-///
-/// 
-/// 
-/// 
-///
-
 .BodyPrincipalDark {
     background-color: $background-body-dark;
 

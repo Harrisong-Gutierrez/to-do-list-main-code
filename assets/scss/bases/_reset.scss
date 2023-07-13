@@ -6,3 +6,14 @@ ul#list-to-do {
 #toggle {
     display: none;
 }
+
+
+.checkbox input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */
+}
+
+
+
+.checkbox input[type="checkbox"] {
+    display: none; /* Oculta el checkbox nativo */
+}

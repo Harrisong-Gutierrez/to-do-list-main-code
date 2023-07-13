@@ -9315,8 +9315,13 @@ ul#list-to-do {
 #toggle {
   display: none; }
 
-ul#list-to-do {
-  width: 670PX; }
+.checkbox input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #000;
+  /* Cambia el color de fondo cuando el checkbox está marcado */ }
+
+.checkbox input[type="checkbox"] {
+  display: none;
+  /* Oculta el checkbox nativo */ }
 
 .BodyPrincipal {
   height: auto;
@@ -9349,7 +9354,7 @@ ul#list-to-do {
     display: flex;
     margin: 2px; }
   .BodyPrincipal-input-form-light {
-    padding-top: 8px;
+    padding-top: 5px;
     background-color: white;
     width: 524px;
     height: 68px;
@@ -9440,24 +9445,6 @@ ul#list-to-do {
     display: flex; }
   .BodyPrincipal-header-box-custom {
     justify-content: space-between; }
-
-.checkbox input[type="checkbox"] {
-  display: none;
-  /* Oculta el checkbox nativo */ }
-
-.custom-checkbox {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  /* Aplica el borde redondeado */
-  background-color: #fff;
-  cursor: pointer; }
-
-.checkbox input[type="checkbox"]:checked + .custom-checkbox {
-  background-color: #000;
-  /* Cambia el color de fondo cuando el checkbox está marcado */ }
 
 .BodyPrincipalDark {
   background-color: #212f3c; }

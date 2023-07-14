@@ -15,7 +15,7 @@ function renderList() {
   const list = document.createElement('ul');
   list.id = 'list-to-do';
   const array_task = document.querySelectorAll('list-to-do')
-  console.log(array_task)
+/*   console.log(array_task.item) */
   list.className = 'list-group';
 
   tasks.forEach(function (task, index ,) {
@@ -25,21 +25,12 @@ function renderList() {
 
     const listItem = document.createElement('li');
      listItem.id = 'list-item-' + index; // Nuevo ID para el listItem
-    const mylist =listItem;
-    const id_task = document.querySelectorAll('list-item-');
-  /*   console.log(id_task.length) */
-    console.log(array_task)
 
-
-    
  
-    listItem.className = '  BodyPrincipal-list-custom-light  d-flex justify-content-between align-items-center';
-    if (index % 2 === 0) {
+    listItem.className = 'BodyPrincipal-list-custom-light  d-flex justify-content-between align-items-center';
+    /*      if (index % 2 === 0) {
         listItem.classList.add('BodyPrincipalDark-dark-list-principal');
-      }
-    
-
-  
+         }  */
     const checkboxDiv = document.createElement('div');
     checkboxDiv.className = 'BodyPrincipal-checkbox';
     const checkbox = document.createElement('div');

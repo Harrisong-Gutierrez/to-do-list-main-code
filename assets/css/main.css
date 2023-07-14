@@ -9411,7 +9411,6 @@ ul#list-to-do {
     border-radius: 90px; }
   .BodyPrincipal-label-task {
     max-width: 433px;
-    overflow: auto;
     white-space: nowrap;
     font-weight: 400;
     text-align: center;

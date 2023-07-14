@@ -80,10 +80,7 @@
         margin-bottom: 33px;
     }
 
-    &-list-dark-color {
-        background-color: $background-list-color;
-    }
-
+  
     &-button-edit {
         width: 67px;
         height: 52px;
@@ -137,6 +134,7 @@
         border: 2px solid black;
         border-width: 2px 0 2px 2px;
         padding-top: 8px;
+        margin-left: 1rem;
     }
 
     &-button-update-task {
@@ -148,6 +146,7 @@
         font-size: 24px;
         font-weight: 400;
         border-radius: 0 8px 8px 0;
+        margin-right: 1rem;
     }
 
     &-buttons {
@@ -159,9 +158,12 @@
 
     &-checkbox {
         display: flex;
+        padding-left: 24px;
     }
 
     &-header-box-custom {
           justify-content: space-between;
     }
 }
+
+

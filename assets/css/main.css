@@ -9384,8 +9384,6 @@ ul#list-to-do {
     justify-content: center;
     margin-top: 33px;
     margin-bottom: 33px; }
-  .BodyPrincipal-list-dark-color {
-    background-color: #f2f2f2; }
   .BodyPrincipal-button-edit {
     width: 67px;
     height: 52px;
@@ -9426,7 +9424,8 @@ ul#list-to-do {
     border-radius: 8px 0 0 8px;
     border: 2px solid black;
     border-width: 2px 0 2px 2px;
-    padding-top: 8px; }
+    padding-top: 8px;
+    margin-left: 1rem; }
   .BodyPrincipal-button-update-task {
     background-color: #f89b1c;
     border: 2px;
@@ -9435,14 +9434,16 @@ ul#list-to-do {
     color: white;
     font-size: 24px;
     font-weight: 400;
-    border-radius: 0 8px 8px 0; }
+    border-radius: 0 8px 8px 0;
+    margin-right: 1rem; }
   .BodyPrincipal-buttons {
     display: flex;
     align-items: center;
     position: absolute;
     margin-left: 31rem; }
   .BodyPrincipal-checkbox {
-    display: flex; }
+    display: flex;
+    padding-left: 24px; }
   .BodyPrincipal-header-box-custom {
     justify-content: space-between; }
 

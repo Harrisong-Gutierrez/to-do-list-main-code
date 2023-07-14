@@ -3,13 +3,13 @@ const body = document.body;
 const mainBox = document.querySelector('main');
 const headerBox = document.getElementById('header-box');
 let taskListItems = document.querySelectorAll('li');
-const labelToggle = document.getElementById('label-toggle');
+const labelToggle = document.getElementById('label_toggle');
 const form = document.getElementById('form');
 const taskInput = document.getElementById('task-input');
 
 toggle.addEventListener('change', (event) => {
   let checked = event.target.checked;
-  console.log(checked);
+   console.log(checked)
 
   // Cambiar el estado del modo oscuro
   if (checked) {
@@ -26,15 +26,22 @@ function enableDarkMode() {
   body.classList.add('BodyPrincipalDark');
   mainBox.classList.add('BodyPrincipalDark-dark-main-box');
   headerBox.classList.add('BodyPrincipalDark-header-box');
-  taskListItems.forEach((item, index) => {
-    item.classList.add('BodyPrincipalDark-dark-list-principal');
-    if (index % 2 === 0) {
-      item.classList.add('BodyPrincipalDark-dark-list-secundary');
-    }
-  });
+  
+  
+  // Verificar si taskListItems no es null y contiene elementos
+  if (taskListItems && taskListItems.length > 0) {
+    taskListItems.forEach((item, index) => {
+      item.classList.add('BodyPrincipalDark-dark-list-principal');
+      if (index % 2 === 0) {
+        item.classList.add('BodyPrincipalDark-dark-list-secundary');
+      }
+    });
+  }
+
   labelToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
   labelToggle.style.color = 'orange';
 }
+
 
 function disableDarkMode() {
   body.classList.remove('BodyPrincipalDark');
@@ -67,34 +74,33 @@ window.addEventListener('beforeunload', () => {
   localStorage.setItem('darkMode', currentDarkMode.toString());
 });
 
-// Escuchar el evento de envío del formulario
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); // Evitar el comportamiento por defecto del formulario
+//  //Escuchar el evento de envío del formul
+//   form.addEventListener('submit', (event) => {
+//     event.preventDefault(); // Evitar el comportamiento por defecto del formulario
 
-  const taskValue = taskInput.value.trim();
+//     const taskValue = taskInput.value.trim();
 
-  if (taskValue !== '') {
-    const newTaskItem = document.createElement('li');
-    newTaskItem.textContent = taskValue;
+//     if (taskValue !== '') {
+//    const newTaskItem = document.createElement('li');
+//       newTaskItem.textContent = taskValue;
 
-    // Agregar las clases correspondientes según el modo oscuro
-    if (toggle.checked) {
-      newTaskItem.classList.add('BodyPrincipalDark-dark-list-principal');
-      const totalTasks = taskListItems.length;
-      if (totalTasks % 2 === 0) {
-        newTaskItem.classList.add('BodyPrincipalDark-dark-list-secundary');
-      }
-    }
+//       // Agregar las clases correspondientes según el modo oscuro
+//      if (toggle.checked) {
+//        newTaskItem.classList.add('BodyPrincipalDark-dark-list-principal');
+//        const totalTasks = taskListItems.length;
+//        if (totalTasks % 2 === 0) {
+//           newTaskItem.classList.add('BodyPrincipalDark-dark-list-secundary');
+//      }
+//      }
 
-    taskListItems = document.querySelectorAll('li'); // Actualizar la lista de elementos de la tarea
-    form.reset(); // Limpiar el campo de entrada
+//      taskListItems = document.querySelectorAll('li'); // Actualizar la lista de elementos de la tarea
+//    form.reset(); // Limpiar el campo de entrada
 
-    // Agregar el nuevo elemento a la lista
-    const taskList = document.getElementById('task-list');
-    taskList.appendChild(newTaskItem);
-  }
-});
-
+// //      // Agregar el nuevo elemento a la lista
+//     const taskList = document.getElementById('task-list');
+//    taskList.appendChild(newTaskItem);
+//    }
+//  });
 
 
 

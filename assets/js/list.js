@@ -9,6 +9,8 @@ var taskCounter = 0;
 // Función para renderizar el componente List
 function renderList() {
   const container = document.getElementById('list-container');
+  const claseslistado = container;
+  console.log(container)
   container.innerHTML = ''; // Vaciar el contenido del contenedor antes de renderizar la lista
   const list = document.createElement('ul');
   list.id = 'list-to-do';
@@ -20,13 +22,10 @@ function renderList() {
     }
 
     const listItem = document.createElement('li');
-    listItem.className = 'BodyPrincipal-list-custom-light list-group-item d-flex justify-content-between align-items-center';
+    listItem.className = 'BodyPrincipal-list-custom-light  d-flex justify-content-between align-items-center';
     listItem.id = 'list-item-' + index; // Nuevo ID para el listItem
 
-    if (index % 2 === 1) {
-      listItem.classList.add('BodyPrincipal-list-dark-color');
-    }
-
+  
     const checkboxDiv = document.createElement('div');
     checkboxDiv.className = 'BodyPrincipal-checkbox';
     const checkbox = document.createElement('div');
@@ -94,7 +93,7 @@ function renderList() {
   taskCounter = tasks.length;
   let element = document.getElementById("couter");
   element.textContent = taskCounter;
-  console.log('Número de tareas:', taskCounter);
+  // console.log('Número de tareas:', taskCounter);
 
   // Guardar las tareas en el almacenamiento local
   saveTasksToLocalStorage();

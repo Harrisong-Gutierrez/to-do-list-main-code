@@ -28,8 +28,8 @@ function renderList() {
 
  
     listItem.className = 'BodyPrincipal-list-custom-light  d-flex justify-content-between align-items-center';
-    /*      if (index % 2 === 0) {
-        listItem.classList.add('BodyPrincipalDark-dark-list-principal');
+/*          if (index % 2 === 0) {
+        listItem.className ='BodyPrincipalDark-dark-list-principal';
          }  */
     const checkboxDiv = document.createElement('div');
     checkboxDiv.className = 'BodyPrincipal-checkbox';

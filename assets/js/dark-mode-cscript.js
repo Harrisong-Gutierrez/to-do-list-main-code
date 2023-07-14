@@ -11,6 +11,12 @@ toggle.addEventListener('change', (event) => {
   let checked = event.target.checked;
    console.log(checked)
 
+
+   if (checked === true) {
+    
+   console.log('is succesful')
+   }
+
   // Cambiar el estado del modo oscuro
   if (checked) {
     enableDarkMode();
@@ -101,8 +107,5 @@ window.addEventListener('beforeunload', () => {
 //    taskList.appendChild(newTaskItem);
 //    }
 //  });
-
-
-
 
 

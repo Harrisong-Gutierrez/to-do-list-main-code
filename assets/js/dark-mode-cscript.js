@@ -8,7 +8,7 @@ const form = document.getElementById('form');
 const taskInput = document.getElementById('task-input');
 
 toggle.addEventListener('change', (event) => {
-  var checked = event.target.checked;
+  let checked = event.target.checked;
    console.log(checked)
 
 
@@ -32,16 +32,6 @@ function enableDarkMode() {
   
   
   
-  // Verificar si taskListItems no es null y contiene elementos
- /*  if (taskListItems && taskListItems.length > 0) {
-    taskListItems.forEach((item, index) => {
-      item.classList.add('BodyPrincipalDark-dark-list-principal');
-      if (index % 2 === 0) {
-        item.classList.add('BodyPrincipalDark-dark-list-secundary');
-      }
-    });
-  }
- */
 
   labelToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
   labelToggle.style.color = 'orange';

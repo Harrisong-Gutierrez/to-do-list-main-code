@@ -4,3 +4,22 @@
 @import "./variables";
 @import "./assets/scss/pages/home/main-container-principal";
 @import "./assets/scss/pages/home/dark-theme-custom"
+
+
+
+
+// Estilos para el color de los tasks en modo claro
+.BodyPrincipal-list-custom {
+    background-color: rgba(0, 0, 0, 0.5); // Reemplaza esto con el color claro deseado
+}
+
+// Estilos para el color de los tasks en modo oscuro
+.BodyPrincipalDark {
+    .BodyPrincipalDark-dark-list-principal {
+        background-color: rgba(0, 0, 0, 0.8); // Reemplaza esto con el color oscuro deseado
+    }
+
+    .BodyPrincipalDark-dark-list-secundary {
+        background-color: rgba(0, 0, 0, 0.6); // Reemplaza esto con el otro color oscuro deseado
+    }
+}

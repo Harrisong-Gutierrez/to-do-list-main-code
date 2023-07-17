@@ -3,10 +3,12 @@ ul#list-to-do {
 }
 
 
-#toggle {
-    display: none;
-}
 
+.form-check.form-switch {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
 
 .checkbox input[type="checkbox"]:checked + .custom-checkbox {
     background-color: #000; /* Cambia el color de fondo cuando el checkbox está marcado */

@@ -9312,8 +9312,10 @@ textarea.form-control-lg {
 ul#list-to-do {
   width: 670PX; }
 
-#toggle {
-  display: none; }
+.form-check.form-switch {
+  display: flex;
+  align-items: center;
+  gap: 9px; }
 
 .checkbox input[type="checkbox"]:checked + .custom-checkbox {
   background-color: #000;

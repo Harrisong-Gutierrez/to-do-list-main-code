@@ -33,3 +33,22 @@
 }
 
 
+.BodyPrincipal-list-custom-light:nth-child(2n) {
+    background-color: #797171;
+  }
+  
+  .BodyPrincipal-list-custom-light:nth-child(2n+1) {
+    background-color: #E8E8E8;
+  }
+  
+
+
+
+  .BodyPrincipal-list-custom-dark:nth-child(2n) {
+    background-color: #948989;
+  }
+  
+  .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
+    background-color: #363636;
+  }
+  

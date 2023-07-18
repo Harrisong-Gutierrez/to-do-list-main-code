@@ -15,6 +15,13 @@
 
           const tasks = this.tasks;
 
+          const checkboxToggle = document.getElementById('toggle');
+          const mainBox = document.querySelector('main');
+          const headerBox = document.getElementById('header-box');
+          const taskListItems = document.querySelectorAll('li');
+          const labelToggle = document.getElementById('label_toggle');
+          const isDarkMode = checkboxToggle.checked;
+
           tasks.forEach(function (task, index) {
             if (!task) {
               return;
@@ -22,7 +29,14 @@
 
             const listItem = document.createElement('li');
             listItem.id = 'list-item-' + index;
-            listItem.className = 'BodyPrincipal-list-custom-light  d-flex justify-content-between align-items-center';
+            listItem.className = 'BodyPrincipal-list-custom d-flex justify-content-between align-items-center';
+
+            // Aplicar la clase de fondo adecuada según el modo (claro u oscuro)
+            if (isDarkMode) {
+              listItem.classList.add('BodyPrincipal-list-custom-dark');
+            } else {
+              listItem.classList.add('BodyPrincipal-list-custom-light');
+            }
 
             const checkboxDiv = document.createElement('div');
             checkboxDiv.className = 'BodyPrincipal-checkbox';
@@ -157,7 +171,6 @@
         list.addTaskToList(task);
       }
 
-      // Código del componente form.js
       function renderForm() {
         const form = document.createElement('form');
         form.className = 'BodyPrincipal-form';
@@ -214,14 +227,14 @@
         list.deleteTask(index);
       }
 
-      // Código del componente Dark Mode
       const toggle = document.getElementById('toggle');
+      const checkboxToggle = document.getElementById('toggle');
       const body = document.body;
       const mainBox = document.querySelector('main');
       const headerBox = document.getElementById('header-box');
       const taskListItems = document.querySelectorAll('li');
       const labelToggle = document.getElementById('label_toggle');
-      const tasks = list.tasks; // Agregamos esta línea para acceder a la variable tasks
+      const tasks = list.tasks;
 
       toggle.addEventListener('change', (event) => {
         let checked = event.target.checked;
@@ -239,9 +252,13 @@
         body.classList.add('BodyPrincipalDark');
         mainBox.classList.add('BodyPrincipalDark-dark-main-box');
         headerBox.classList.add('BodyPrincipalDark-header-box');
-        taskListItems.forEach((item) => {
-          item.classList.add('BodyPrincipalDark-dark-list-principal');
+
+        // Aplicar la clase de fondo oscuro a los elementos de la lista de tareas
+        taskListItems.forEach((item, index) => {
+          item.classList.remove('BodyPrincipal-list-custom-light');
+          item.classList.add('BodyPrincipal-list-custom-dark');
         });
+
         labelToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
         labelToggle.style.color = 'orange';
       }
@@ -250,9 +267,13 @@
         body.classList.remove('BodyPrincipalDark');
         mainBox.classList.remove('BodyPrincipalDark-dark-main-box');
         headerBox.classList.remove('BodyPrincipalDark-header-box');
-        taskListItems.forEach((item) => {
-          item.classList.remove('BodyPrincipalDark-dark-list-principal');
+
+        // Aplicar la clase de fondo claro a los elementos de la lista de tareas
+        taskListItems.forEach((item, index) => {
+          item.classList.remove('BodyPrincipal-list-custom-dark');
+          item.classList.add('BodyPrincipal-list-custom-light');
         });
+
         labelToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
         labelToggle.style.color = 'purple';
       }
@@ -261,10 +282,10 @@
         const savedDarkMode = localStorage.getItem('darkMode');
 
         if (savedDarkMode === 'true') {
-          toggle.checked = true;
+          checkboxToggle.checked = true;
           enableDarkMode();
         } else {
-          toggle.checked = false;
+          checkboxToggle.checked = false;
           disableDarkMode();
         }
       });

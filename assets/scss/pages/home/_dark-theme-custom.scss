@@ -34,21 +34,24 @@
 
 
 .BodyPrincipal-list-custom-light:nth-child(2n) {
-    background-color: #797171;
+    background-color:$background-white;
   }
   
   .BodyPrincipal-list-custom-light:nth-child(2n+1) {
-    background-color: #E8E8E8;
+    background-color: $background-list-color;
   }
   
 
 
 
   .BodyPrincipal-list-custom-dark:nth-child(2n) {
-    background-color: #948989;
+    background-color:$list-baground-second;
+    color: $text-white; 
   }
   
   .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
-    background-color: #363636;
+    background-color:$list-baground-first;
+    color: $text-white;
+
   }
   

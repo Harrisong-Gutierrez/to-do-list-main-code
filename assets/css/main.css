@@ -9381,6 +9381,10 @@ ul#list-to-do {
     width: auto;
     height: 76px;
     border: 2px solid #d9d9d9; }
+  .BodyPrincipal-list-custom-dark {
+    width: auto;
+    height: 76px;
+    border: 2px solid #d9d9d9; }
   .BodyPrincipal-list-container {
     display: flex;
     justify-content: center;
@@ -9472,15 +9476,17 @@ ul#list-to-do {
     color: white; }
 
 .BodyPrincipal-list-custom-light:nth-child(2n) {
-  background-color: #797171; }
+  background-color: white; }
 
 .BodyPrincipal-list-custom-light:nth-child(2n+1) {
-  background-color: #E8E8E8; }
+  background-color: #f2f2f2; }
 
 .BodyPrincipal-list-custom-dark:nth-child(2n) {
-  background-color: #948989; }
+  background-color: #4982b4;
+  color: white; }
 
 .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
-  background-color: #363636; }
+  background-color: #182938;
+  color: white; }
 
 /*# sourceMappingURL=main.css.map */

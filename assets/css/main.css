@@ -9312,6 +9312,9 @@ textarea.form-control-lg {
 ul#list-to-do {
   width: 670PX; }
 
+input#toggle {
+  margin-bottom: 3PX; }
+
 .form-check.form-switch {
   display: flex;
   align-items: center;
@@ -9468,12 +9471,6 @@ ul#list-to-do {
     margin-bottom: 100px; }
   .BodyPrincipalDark-header-box {
     background-color: #1c3041; }
-  .BodyPrincipalDark-dark-list-principal {
-    background-color: #182938;
-    color: white; }
-  .BodyPrincipalDark-dark-list-secundary {
-    background-color: #4982b4;
-    color: white; }
 
 .BodyPrincipal-list-custom-light:nth-child(2n) {
   background-color: white; }

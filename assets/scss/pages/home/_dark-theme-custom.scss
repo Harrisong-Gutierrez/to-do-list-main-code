@@ -20,18 +20,13 @@
     &-header-box {
         background-color: $dark-header-box;
     }
+    
 
-    &-dark-list-principal {
-        background-color: $background-table-dark-principal;
-        color: $text-white;
-    }
-
-    &-dark-list-secundary {
-        background-color: $background-table-dark-secundary;
-        color: $text-white;
-    }
+  
+    
 }
-
+//
+//  special clacess for 
 
 .BodyPrincipal-list-custom-light:nth-child(2n) {
     background-color:$background-white;
@@ -46,7 +41,8 @@
 
   .BodyPrincipal-list-custom-dark:nth-child(2n) {
     background-color:$list-baground-second;
-    color: $text-white; 
+    color: $text-white;
+  
   }
   
   .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
@@ -54,4 +50,4 @@
     color: $text-white;
 
   }
-  
+///  

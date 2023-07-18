@@ -14,16 +14,11 @@
         const  input = document.getElementById('input-id')
 
         form.appendChild(input);
-/* 
-        const addButton = document.createElement('button');
-        addButton.type = 'button';
-        addButton.id = 'submit-button-id-icon';
-        addButton.className = 'BodyPrincipal-button-light'; */
-    /*     addButton.innerHTML = 'Submit'; */
         const addButton = document.getElementById('submit-button-id-icon');
+        const icon = document.getElementById('icon-id')
 
-        const icon = document.createElement('i');
-        icon.className = 'fa-solid fa-paper-plane';
+
+
         addButton.appendChild(document.createTextNode(' '));
         addButton.appendChild(icon);
 

@@ -23,18 +23,18 @@
       this.renderForm();
       this.bindingEvents();
 
-    
+
     },
     renderForm: function () {
       this.cacheDom();
-    
+
       this.form.className = 'BodyPrincipal-form';
-    
+
       this.form.appendChild(this.input);
-    
+
       this.addButton.appendChild(document.createTextNode(' '));
       this.addButton.appendChild(this.icon);
-    
+
       this.form.appendChild(this.addButton);
       this.formContainer.appendChild(this.form);
     },
@@ -47,6 +47,8 @@
       list.id = 'list-to-do';
       list.className = 'list-group';
 
+   
+      
       const tasks = this.tasks;
 
       const isDarkMode = this.checkboxToggle.checked;

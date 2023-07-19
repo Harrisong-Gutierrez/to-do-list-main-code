@@ -1,6 +1,8 @@
 (function () {
   const module = {
     tasks: [],
+    taskIdCounter: 0, // Contador para generar identificadores únicos
+
     cacheDom: function () {
       this.formContainer = document.getElementById('form-container');
       this.form = document.getElementById('form-id');
@@ -16,50 +18,41 @@
       this.taskCounter = document.getElementById('couter');
       this.body = document.body;
     },
+
     main: function () {
       this.cacheDom();
       this.loadTasksFromLocalStorage();
       this.renderList();
-      this.renderForm();
       this.bindingEvents();
-
-
     },
-    renderForm: function () {
-      this.cacheDom();
 
-      this.form.className = 'BodyPrincipal-form';
-
-      this.form.appendChild(this.input);
-
-      this.addButton.appendChild(document.createTextNode(' '));
-      this.addButton.appendChild(this.icon);
-
-      this.form.appendChild(this.addButton);
-      this.formContainer.appendChild(this.form);
-    },
     renderList: function () {
       this.cacheDom();
 
-      this.listContainer.innerHTML = '';
+      const list = document.getElementById('list-to-do');
 
-      const list = document.createElement('ul');
-      list.id = 'list-to-do';
-      list.className = 'list-group';
+      if (!list) {
+        const newList = document.createElement('ul');
+        newList.id = 'list-to-do';
+        newList.className = 'list-group';
+        this.listContainer.appendChild(newList);
+      }
 
-   
-      
       const tasks = this.tasks;
-
       const isDarkMode = this.checkboxToggle.checked;
 
-      tasks.forEach(function (task, index) {
+      const listItems = list.querySelectorAll('li');
+      listItems.forEach(function (listItem) {
+        listItem.remove();
+      });
+
+      tasks.forEach(function (task) {
         if (!task) {
           return;
         }
 
         const listItem = document.createElement('li');
-        listItem.id = 'list-item-' + index;
+        listItem.id = 'list-item-' + task.id;
         listItem.className = 'BodyPrincipal-list-custom d-flex justify-content-between align-items-center';
 
         if (isDarkMode) {
@@ -73,25 +66,26 @@
         const checkbox = document.createElement('div');
         checkbox.type = 'radio';
         checkbox.className = '<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task';
-        checkbox.id = 'task-' + index;
+        checkbox.id = 'task-' + task.id;
 
         checkbox.addEventListener('click', function () {
           checkbox.checked = !checkbox.checked;
           if (checkbox.checked) {
             label.style.textDecoration = 'line-through';
-            tasks[index].completed = true;
+            task.completed = true;
           } else {
             label.style.textDecoration = 'none';
-            tasks[index].completed = false;
+            task.completed = false;
           }
           module.saveTasksToLocalStorage();
         });
         checkboxDiv.appendChild(checkbox);
 
         const label = document.createElement('label');
-        label.htmlFor = 'task-' + index;
+        label.htmlFor = 'task-' + task.id;
         label.textContent = task.text;
         label.className = 'BodyPrincipal-label-task';
+        
 
         if (task.completed) {
           checkbox.checked = true;
@@ -118,81 +112,110 @@
         listItem.appendChild(buttonsDiv);
         list.appendChild(listItem);
 
-        // Event Listener para editar tarea
         editButton.addEventListener('click', function () {
-          module.editTask(task, index);
+          module.editTask(task, task.id);
         });
 
-        // Event Listener para eliminar tarea
         deleteButton.addEventListener('click', function () {
-          module.deleteTask(index);
+          module.deleteTask(task.id);
         });
       });
-
-      this.listContainer.appendChild(list);
 
       const taskCounter = tasks.length;
       this.taskCounter.textContent = taskCounter;
 
       module.saveTasksToLocalStorage();
     },
+
     addTaskToList: function (task) {
-      this.tasks.push({ text: task, completed: false });
+      const newTask = {
+        id: this.taskIdCounter,
+        text: task,
+        completed: false
+      };
+
+      this.tasks.push(newTask);
+      this.taskIdCounter++;
+
       this.renderList();
     },
+
     saveTasksToLocalStorage: function () {
       localStorage.setItem('tasks', JSON.stringify(this.tasks));
     },
+
     loadTasksFromLocalStorage: function () {
       const savedTasks = localStorage.getItem('tasks');
       this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
     },
-    editTask: function (task, index) {
-      const listItem = document.getElementById('list-item-' + index);
-      const label = listItem.querySelector('label');
-      const editButton = listItem.querySelector('.BodyPrincipal-button-edit');
-      const deleteButton = listItem.querySelector('.BodyPrincipal-button-delete');
 
-      // Ocultar los botones de edición y eliminación
-      editButton.style.display = 'none';
-      deleteButton.style.display = 'none';
+  
+  editTask: function (task, taskId) {
+  const listItem = document.getElementById('list-item-' + taskId);
+  const label = listItem.querySelector('label');
 
-      label.style.display = 'none';
+  const existingInput = listItem.querySelector('.BodyPrincipal-input-edit-task');
+  const existingButton = listItem.querySelector('.BodyPrincipal-button-update-task');
 
-      const inputEdit = document.createElement('input');
-      inputEdit.type = 'text';
-      inputEdit.value = task.text;
-      inputEdit.className = 'BodyPrincipal-input-edit-task';
+  if (existingInput && existingButton) {
+    existingInput.remove();
+    existingButton.remove();
+  }
 
-      const updateButton = document.createElement('button');
-      updateButton.className = 'BodyPrincipal-button-update-task';
-      updateButton.textContent = 'Update';
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.value = task.text;
+  inputEdit.className = 'BodyPrincipal-input-edit-task';
 
-      listItem.appendChild(inputEdit);
-      listItem.appendChild(updateButton);
+  const updateButton = document.createElement('button');
+  updateButton.className = 'BodyPrincipal-button-update-task';
+  updateButton.textContent = 'Update';
 
-      updateButton.addEventListener('click', function () {
-        const updatedTask = inputEdit.value.trim();
-        if (updatedTask !== '') {
-          module.tasks[index].text = updatedTask;
-          module.renderList();
-        }
-      });
+  listItem.insertBefore(inputEdit, label.nextSibling);
+  listItem.insertBefore(updateButton, label.nextSibling);
 
-      inputEdit.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          const updatedTask = inputEdit.value.trim();
-          if (updatedTask !== '') {
-            module.tasks[index].text = updatedTask;
-            module.renderList();
-          }
-        }
-      });
+  label.style.display = 'none'; // Ocultamos la etiqueta durante la edición
+  listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none'; // Ocultamos los botones durante la edición
+
+  updateButton.addEventListener('click', function () {
+    const updatedTask = inputEdit.value.trim();
+    if (updatedTask !== '') {
+      task.text = updatedTask;
+      module.renderList();
+    }
+    listItem.removeChild(inputEdit);
+    listItem.removeChild(updateButton);
+    label.style.display = ''; // Mostramos nuevamente la etiqueta después de la edición
+    listItem.querySelector('.BodyPrincipal-buttons').style.display = ''; // Mostramos nuevamente los botones después de la edición
+    label.textContent = task.text; // Actualizamos el valor de la etiqueta con el valor editado
+  });
+
+  inputEdit.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      const updatedTask = inputEdit.value.trim();
+      if (updatedTask !== '') {
+        task.text = updatedTask;
+        module.renderList();
+      }
+      listItem.removeChild(inputEdit);
+      listItem.removeChild(updateButton);
+      label.style.display = ''; // Mostramos nuevamente la etiqueta después de la edición
+      listItem.querySelector('.BodyPrincipal-buttons').style.display = ''; // Mostramos nuevamente los botones después de la edición
+      label.textContent = task.text; // Actualizamos el valor de la etiqueta con el valor editado
+    }
+  });
+},
+
+  
+
+    deleteTask: function (taskId) {
+      const taskIndex = this.tasks.findIndex(task => task.id === taskId);
+      if (taskIndex !== -1) {
+        this.tasks.splice(taskIndex, 1);
+        this.renderList();
+      }
     },
-    deleteTask: function (index) {
-      this.tasks.splice(index, 1);
-      this.renderList();
-    },
+
     bindingEvents: function () {
       window.addEventListener('DOMContentLoaded', function () {
         const savedDarkMode = localStorage.getItem('darkMode');
@@ -243,7 +266,7 @@
     module.headerBox.classList.add('BodyPrincipalDark-header-box');
 
     const taskListItems = module.listContainer.querySelectorAll('li');
-    taskListItems.forEach(function (item, index) {
+    taskListItems.forEach(function (item) {
       item.classList.remove('BodyPrincipal-list-custom-light');
       item.classList.add('BodyPrincipal-list-custom-dark');
     });
@@ -258,7 +281,7 @@
     module.headerBox.classList.remove('BodyPrincipalDark-header-box');
 
     const taskListItems = module.listContainer.querySelectorAll('li');
-    taskListItems.forEach(function (item, index) {
+    taskListItems.forEach(function (item) {
       item.classList.remove('BodyPrincipal-list-custom-dark');
       item.classList.add('BodyPrincipal-list-custom-light');
     });

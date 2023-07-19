@@ -9451,7 +9451,8 @@ input#toggle {
     margin-left: 31rem; }
   .BodyPrincipal-checkbox {
     display: flex;
-    padding-left: 24px; }
+    padding-left: 24px;
+    width: 45px; }
   .BodyPrincipal-header-box-custom {
     justify-content: space-between; }
 

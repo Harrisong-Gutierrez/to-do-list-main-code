@@ -18,6 +18,7 @@
       this.taskCounter = document.getElementById('couter');
       this.list = document.getElementById('list-to-do');
       this.listItems = this.list ? this.list.querySelectorAll('li') : [];
+      this.isDarkMode = this.checkboxToggle.checked;
     },
 
     main: function () {
@@ -44,88 +45,77 @@
       this.listItem = document.createElement('li');
 
       this.checkboxDiv = document.createElement('div');
-      
+
       this.label = document.createElement('label');
 
       this.listContainer = this.list
 
 
 
+      this.listItem.id = `list-item-${todo.id}`;
+      this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'}`;
 
+      this.checkboxDiv.className = 'BodyPrincipal-checkbox';
+      const checkbox = document.createElement('div');
+      checkbox.type = 'radio';
+      checkbox.className = `<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task`;
+      checkbox.id = `task-${todo.id}`;
+
+      checkbox.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+        const label = this.listItem.querySelector('label');
+        label.style.textDecoration = checkboxeleteButto.checked ? 'line-through' : 'none';
+        task.completed = checkbox.checked;
+        this.saveTasksToLocalStorage();
+      });
+
+      this.checkboxDiv.appendChild(checkbox);
+
+      /*  const label = document.createElement('label'); */
+      this.label.htmlFor = `task-${todo.id}`;
+      this.label.textContent = todo.text;
+      this.label.className = 'BodyPrincipal-label-task';
+
+      checkbox.checked = todo.completed;
+      this.label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+
+      this.checkboxDiv.appendChild(this.label);
+      this.listItem.appendChild(this.checkboxDiv);
+
+      /* const buttonsDiv = document.createElement('div'); */
+      this.buttonsDiv.className = 'BodyPrincipal-buttons';
+
+      /* const editButton = document.createElement('button'); */
+      this.editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
+      this.editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
+      this.buttonsDiv.appendChild(this.editButton);
+
+      /* const deleteButton = document.createElement('button'); */
+      this.deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
+      this.deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
+      this.buttonsDiv.appendChild(this.deleteButton);
+
+      this.listItem.appendChild(this.buttonsDiv);
+      this.list.appendChild(this.listItem);
+
+      this.editButton.addEventListener('click', () => this.editTask(todo, todo.id));
+      this.deleteButton.addEventListener('click', () => this.deleteTask(todo.id));
 
 
 
     },
 
     renderList: function () {
-      this.createItems();
 
-      /*  const list = document.getElementById('list-to-do'); */
 
-      /*  const listContainer = list */
-      this.listContainer
-        ? null
-        : ((listContainer = document.createElement('ul')),
-          (listContainer.id = 'list-to-do'),
-          (listContainer.className = 'list-group'),
-          this.listContainer.appendChild(listContainer));
 
-      const isDarkMode = this.checkboxToggle.checked;
-      /*      const listItems = this.list ? this.list.querySelectorAll('li') : [];  */
-      this.listItems.forEach((listItem) => listItem.remove());
+
+
 
       this.tasks.forEach((task) => {
-        /* const listItem = document.createElement('li'); */
-        this.listItem.id = `list-item-${task.id}`;
-        this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'
-          }`;
+        this.createItems(task);
 
-        /* const checkboxDiv = document.createElement('div'); */
-        this.checkboxDiv.className = 'BodyPrincipal-checkbox';
-        const checkbox = document.createElement('div');
-        checkbox.type = 'radio';
-        checkbox.className = `<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task`;
-        checkbox.id = `task-${task.id}`;
 
-        checkbox.addEventListener('click', () => {
-          checkbox.checked = !checkbox.checked;
-          const label = this.listItem.querySelector('label');
-          label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
-          task.completed = checkbox.checked;
-          this.saveTasksToLocalStorage();
-        });
-
-        this.checkboxDiv.appendChild(checkbox);
-
-        /*  const label = document.createElement('label'); */
-        this.label.htmlFor = `task-${task.id}`;
-        this.label.textContent = task.text;
-        this.label.className = 'BodyPrincipal-label-task';
-
-        checkbox.checked = task.completed;
-        this.label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
-
-        this.checkboxDiv.appendChild(this.label);
-        this.listItem.appendChild(this.checkboxDiv);
-
-        /* const buttonsDiv = document.createElement('div'); */
-        this.buttonsDiv.className = 'BodyPrincipal-buttons';
-
-        /* const editButton = document.createElement('button'); */
-        this.editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
-        this.editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
-        this.buttonsDiv.appendChild(this.editButton);
-
-        /* const deleteButton = document.createElement('button'); */
-        this.deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
-        this.deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
-        this.buttonsDiv.appendChild(this.deleteButton);
-
-        this.listItem.appendChild(this.buttonsDiv);
-        this.list.appendChild(this.listItem);
-
-        this.editButton.addEventListener('click', () => this.editTask(task, task.id));
-        this.deleteButton.addEventListener('click', () => this.deleteTask(task.id));
       });
 
       this.taskCounter.textContent = this.tasks.length;
@@ -141,7 +131,8 @@
 
       this.tasks.push(newTask);
       this.taskIdCounter++;
-      this.renderList();
+      this.createItems(newTask);
+
     },
 
     saveTasksToLocalStorage: function () {
@@ -163,12 +154,12 @@
       existingInput?.remove();
       existingButton?.remove();
 
-      /*  const inputEdit = document.createElement('input'); */
+
       this.inputEdit.type = 'text';
       this.inputEdit.value = task.text;
       this.inputEdit.className = 'BodyPrincipal-input-edit-task';
 
-      /*  const updateButton = document.createElement('button'); */
+
       this.updateButton.className = 'BodyPrincipal-button-update-task';
       this.updateButton.textContent = 'Update';
 
@@ -204,9 +195,11 @@
 
     deleteTask: function (taskId) {
       console.log("task", taskId)
-      const taskIndex = this.tasks.findIndex((task) => task.id === taskId);
-      console.log("editTas",this.tasks)
-      taskIndex !== -1 && (this.tasks.splice(taskIndex, 1), this.renderList());
+      const updatedTasks = this.tasks.filter((task) => task.id !== taskId);
+      console.log("editTas", this.tasks)/* 
+      taskIndex !== -1 && (this.tasks.splice(taskIndex, 1), this.renderList()); */
+
+
     },
 
     bindEvents: function () {

@@ -30,12 +30,12 @@
     renderList: function () {
       const list = document.getElementById('list-to-do');
 
-      const newList = list
+      const listContainer = list
         ? null
-        : ((newList = document.createElement('ul')),
-          (newList.id = 'list-to-do'),
-          (newList.className = 'list-group'),
-          this.listContainer.appendChild(newList));
+        : ((listContainer = document.createElement('ul')),
+          (listContainer.id = 'list-to-do'),
+          (listContainer.className = 'list-group'),
+          this.listContainer.appendChild(listContainer));
 
       const isDarkMode = this.checkboxToggle.checked;
       const listItems = list ? list.querySelectorAll('li') : [];
@@ -157,15 +157,15 @@
       });
 
       inputEdit.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          const updatedTask = inputEdit.value.trim();
-          updatedTask !== '' && ((task.text = updatedTask), this.renderList());
-          inputEdit.remove();
-          updateButton.remove();
-          label.style.display = '';
-          listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
-          label.textContent = task.text;
-        }
+        event.key === 'Enter' &&
+          ((updatedTask = inputEdit.value.trim()),
+          updatedTask !== '' &&
+            ((task.text = updatedTask), this.renderList()),
+          inputEdit.remove(),
+          updateButton.remove(),
+          (label.style.display = ''),
+          (listItem.querySelector('.BodyPrincipal-buttons').style.display = ''),
+          (label.textContent = task.text));
       });
     },
 

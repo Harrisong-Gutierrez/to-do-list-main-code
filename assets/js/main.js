@@ -2,7 +2,6 @@
   const module = {
     tasks: [],
     taskIdCounter: 0,
-    bodyElement: null,
 
     cacheDom: function () {
       this.formContainer = document.getElementById('form-container');
@@ -17,7 +16,6 @@
       this.mainBox = document.querySelector('main');
       this.headerBox = document.getElementById('header-box');
       this.taskCounter = document.getElementById('couter');
-      this.bodyElement = document.querySelector('body');
     },
 
     main: function () {
@@ -199,7 +197,7 @@
     },
 
     enableDarkMode: function () {
-      this.bodyElement.classList.add('BodyPrincipalDark');
+      document.body.classList.add('BodyPrincipalDark');
       this.mainBox.classList.add('BodyPrincipalDark-dark-main-box');
       this.headerBox.classList.add('BodyPrincipalDark-header-box');
 
@@ -214,7 +212,7 @@
     },
 
     disableDarkMode: function () {
-      this.bodyElement.classList.remove('BodyPrincipalDark');
+      document.body.classList.remove('BodyPrincipalDark');
       this.mainBox.classList.remove('BodyPrincipalDark-dark-main-box');
       this.headerBox.classList.remove('BodyPrincipalDark-header-box');
 

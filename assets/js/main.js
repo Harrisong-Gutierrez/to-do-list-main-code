@@ -16,6 +16,8 @@
       this.mainBox = document.querySelector('main');
       this.headerBox = document.getElementById('header-box');
       this.taskCounter = document.getElementById('couter');
+      this.list = document.getElementById('list-to-do');
+      this.listItems = this.list ? this.list.querySelectorAll('li') : [];
     },
 
     main: function () {
@@ -25,10 +27,43 @@
       this.bindEvents();
     },
 
-    renderList: function () {
-      const list = document.getElementById('list-to-do');
+    createItems: function (todo) {
 
-      const listContainer = list
+
+
+      this.inputEdit = document.createElement('input');
+
+      this.buttonsDiv = document.createElement('div');
+
+      this.editButton = document.createElement('button');
+
+      this.deleteButton = document.createElement('button');
+
+      this.updateButton = document.createElement('button');
+
+      this.listItem = document.createElement('li');
+
+      this.checkboxDiv = document.createElement('div');
+
+      this.label = document.createElement('label');
+
+      this.listContainer = this.list
+
+
+
+
+
+
+
+    },
+
+    renderList: function () {
+      this.createItems();
+
+      /*  const list = document.getElementById('list-to-do'); */
+
+      /*  const listContainer = list */
+      this.listContainer
         ? null
         : ((listContainer = document.createElement('ul')),
           (listContainer.id = 'list-to-do'),
@@ -36,18 +71,17 @@
           this.listContainer.appendChild(listContainer));
 
       const isDarkMode = this.checkboxToggle.checked;
-      const listItems = list ? list.querySelectorAll('li') : [];
-      listItems.forEach((listItem) => listItem.remove());
+      /*      const listItems = this.list ? this.list.querySelectorAll('li') : [];  */
+      this.listItems.forEach((listItem) => listItem.remove());
 
       this.tasks.forEach((task) => {
-        const listItem = document.createElement('li');
-        listItem.id = `list-item-${task.id}`;
-        listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${
-          isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'
-        }`;
+        /* const listItem = document.createElement('li'); */
+        this.listItem.id = `list-item-${task.id}`;
+        this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'
+          }`;
 
-        const checkboxDiv = document.createElement('div');
-        checkboxDiv.className = 'BodyPrincipal-checkbox';
+        /* const checkboxDiv = document.createElement('div'); */
+        this.checkboxDiv.className = 'BodyPrincipal-checkbox';
         const checkbox = document.createElement('div');
         checkbox.type = 'radio';
         checkbox.className = `<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task`;
@@ -61,37 +95,37 @@
           this.saveTasksToLocalStorage();
         });
 
-        checkboxDiv.appendChild(checkbox);
+        this.checkboxDiv.appendChild(checkbox);
 
-        const label = document.createElement('label');
-        label.htmlFor = `task-${task.id}`;
-        label.textContent = task.text;
-        label.className = 'BodyPrincipal-label-task';
+        /*  const label = document.createElement('label'); */
+        this.label.htmlFor = `task-${task.id}`;
+        this.label.textContent = task.text;
+        this.label.className = 'BodyPrincipal-label-task';
 
         checkbox.checked = task.completed;
-        label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+        this.label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
 
-        checkboxDiv.appendChild(label);
-        listItem.appendChild(checkboxDiv);
+        this.checkboxDiv.appendChild(this.label);
+        this.listItem.appendChild(this.checkboxDiv);
 
-        const buttonsDiv = document.createElement('div');
-        buttonsDiv.className = 'BodyPrincipal-buttons';
+        /* const buttonsDiv = document.createElement('div'); */
+        this.buttonsDiv.className = 'BodyPrincipal-buttons';
 
-        const editButton = document.createElement('button');
-        editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
-        editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
-        buttonsDiv.appendChild(editButton);
+        /* const editButton = document.createElement('button'); */
+        this.editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
+        this.editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
+        this.buttonsDiv.appendChild(this.editButton);
 
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
-        deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
-        buttonsDiv.appendChild(deleteButton);
+        /* const deleteButton = document.createElement('button'); */
+        this.deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
+        this.deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
+        this.buttonsDiv.appendChild(this.deleteButton);
 
-        listItem.appendChild(buttonsDiv);
-        list.appendChild(listItem);
+        this.listItem.appendChild(this.buttonsDiv);
+        this.list.appendChild(this.listItem);
 
-        editButton.addEventListener('click', () => this.editTask(task, task.id));
-        deleteButton.addEventListener('click', () => this.deleteTask(task.id));
+        this.editButton.addEventListener('click', () => this.editTask(task, task.id));
+        this.deleteButton.addEventListener('click', () => this.deleteTask(task.id));
       });
 
       this.taskCounter.textContent = this.tasks.length;
@@ -129,41 +163,41 @@
       existingInput?.remove();
       existingButton?.remove();
 
-      const inputEdit = document.createElement('input');
-      inputEdit.type = 'text';
-      inputEdit.value = task.text;
-      inputEdit.className = 'BodyPrincipal-input-edit-task';
+      /*  const inputEdit = document.createElement('input'); */
+      this.inputEdit.type = 'text';
+      this.inputEdit.value = task.text;
+      this.inputEdit.className = 'BodyPrincipal-input-edit-task';
 
-      const updateButton = document.createElement('button');
-      updateButton.className = 'BodyPrincipal-button-update-task';
-      updateButton.textContent = 'Update';
+      /*  const updateButton = document.createElement('button'); */
+      this.updateButton.className = 'BodyPrincipal-button-update-task';
+      this.updateButton.textContent = 'Update';
 
-      listItem.insertBefore(inputEdit, label.nextSibling);
-      listItem.insertBefore(updateButton, label.nextSibling);
+      listItem.insertBefore(this.inputEdit, label.nextSibling);
+      listItem.insertBefore(this.updateButton, label.nextSibling);
 
-      label.style.display = 'none';
-      listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
+      this.label.style.display = 'none';
+      this.listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
 
-      updateButton.addEventListener('click', () => {
-        const updatedTask = inputEdit.value.trim();
+      this.updateButton.addEventListener('click', () => {
+        const updatedTask = this.inputEdit.value.trim();
         updatedTask !== '' && ((task.text = updatedTask), this.renderList());
-        inputEdit.remove();
-        updateButton.remove();
+        this.inputEdit.remove();
+        this.updateButton.remove();
         label.style.display = '';
         listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
         label.textContent = task.text;
       });
 
-      inputEdit.addEventListener('keydown', (event) => {
+      this.inputEdit.addEventListener('keydown', (event) => {
         event.key === 'Enter' &&
-          ((updatedTask = inputEdit.value.trim()),
-          updatedTask !== '' &&
+          ((updatedTask = this.inputEdit.value.trim()),
+            updatedTask !== '' &&
             ((task.text = updatedTask), this.renderList()),
-          inputEdit.remove(),
-          updateButton.remove(),
-          (label.style.display = ''),
-          (listItem.querySelector('.BodyPrincipal-buttons').style.display = ''),
-          (label.textContent = task.text));
+            this.inputEdit.remove(),
+            this.updateButton.remove(),
+            (label.style.display = ''),
+            (listItem.querySelector('.BodyPrincipal-buttons').style.display = ''),
+            (label.textContent = task.text));
       });
     },
 

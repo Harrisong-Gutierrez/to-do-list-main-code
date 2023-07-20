@@ -44,7 +44,7 @@
       this.listItem = document.createElement('li');
 
       this.checkboxDiv = document.createElement('div');
-
+      
       this.label = document.createElement('label');
 
       this.listContainer = this.list
@@ -89,7 +89,7 @@
 
         checkbox.addEventListener('click', () => {
           checkbox.checked = !checkbox.checked;
-          const label = listItem.querySelector('label');
+          const label = this.listItem.querySelector('label');
           label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
           task.completed = checkbox.checked;
           this.saveTasksToLocalStorage();
@@ -180,6 +180,7 @@
 
       this.updateButton.addEventListener('click', () => {
         const updatedTask = this.inputEdit.value.trim();
+        console.log("update")
         updatedTask !== '' && ((task.text = updatedTask), this.renderList());
         this.inputEdit.remove();
         this.updateButton.remove();
@@ -202,7 +203,9 @@
     },
 
     deleteTask: function (taskId) {
+      console.log("task", taskId)
       const taskIndex = this.tasks.findIndex((task) => task.id === taskId);
+      console.log("editTas",this.tasks)
       taskIndex !== -1 && (this.tasks.splice(taskIndex, 1), this.renderList());
     },
 

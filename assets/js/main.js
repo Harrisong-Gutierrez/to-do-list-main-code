@@ -28,12 +28,11 @@
       this.bindEvents();
     },
 
-    createItems: function (todo) {
+    createItems: function (todo, isDarkMode) {
       this.inputEdit = document.createElement('input');
       this.buttonsDiv = document.createElement('div');
       this.editButton = document.createElement('button');
       this.deleteButton = document.createElement('button');
-      this.deleteButton.addEventListener('click', () => this.deleteTask(todo.id)); // Usar el ID de la tarea para eliminarla
       this.updateButton = document.createElement('button');
       this.listItem = document.createElement('li');
       this.checkboxDiv = document.createElement('div');
@@ -41,7 +40,7 @@
       this.listContainer = this.list;
 
       this.listItem.id = `list-item-${todo.id}`;
-      this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'}`;
+      this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'}`;
 
       this.checkboxDiv.className = 'BodyPrincipal-checkbox';
       const checkbox = document.createElement('div');
@@ -92,7 +91,7 @@
 
     renderList: function () {
       this.tasks.forEach((task) => {
-        this.createItems(task);
+        this.createItems(task, this.isDarkMode);
       });
 
       this.taskCounter.textContent = this.tasks.length;
@@ -108,7 +107,7 @@
 
       this.tasks.push(newTask);
       this.taskIdCounter++;
-      this.createItems(newTask);
+      this.createItems(newTask, this.isDarkMode);
       this.updateTaskCounter();
       this.saveTasksToLocalStorage();
     },
@@ -138,31 +137,31 @@
     editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
       const label = listItem.querySelector('label');
-    
+
       const existingInput = listItem.querySelector('.BodyPrincipal-input-edit-task');
       const existingButton = listItem.querySelector('.BodyPrincipal-button-update-task');
-    
+
       existingInput?.remove();
       existingButton?.remove();
-    
+
       this.inputEdit = document.createElement('input');
       this.inputEdit.type = 'text';
       this.inputEdit.value = task.text;
       this.inputEdit.className = 'BodyPrincipal-input-edit-task';
-    
+
       this.updateButton = document.createElement('button');
       this.updateButton.className = 'BodyPrincipal-button-update-task';
       this.updateButton.textContent = 'Update';
-    
+
       const parentElement = label.parentNode;
       parentElement.insertBefore(this.inputEdit, label.nextSibling);
       parentElement.insertBefore(this.updateButton, label.nextSibling);
-    
+
       this.label.style.display = 'none';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
-    
+
       const self = this;
-    
+
       this.updateButton.addEventListener('click', function () {
         const updatedTask = self.inputEdit.value.trim();
         if (updatedTask !== '') {
@@ -170,15 +169,15 @@
           self.updateListItem(listItem, task);
           self.inputEdit.remove();
           self.updateButton.remove();
-    
-          self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
+
+          self.saveTasksToLocalStorage();
         }
-    
+
         self.label.style.display = '';
         listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
         label.textContent = task.text;
       });
-    
+
       this.inputEdit.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           const updatedTask = self.inputEdit.value.trim();
@@ -187,10 +186,10 @@
             self.updateListItem(listItem, task);
             self.inputEdit.remove();
             self.updateButton.remove();
-    
-            self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
+
+            self.saveTasksToLocalStorage();
           }
-    
+
           self.label.style.display = '';
           listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
           label.textContent = task.text;
@@ -205,7 +204,6 @@
       this.renderList();
       this.updateTaskCounter();
     },
-    
 
     bindEvents: function () {
       window.addEventListener('DOMContentLoaded', () => {

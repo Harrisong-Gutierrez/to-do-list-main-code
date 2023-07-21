@@ -71,7 +71,7 @@
 
       this.checkboxDiv.appendChild(checkbox);
 
-      /*  const label = document.createElement('label'); */
+    
       this.label.htmlFor = `task-${todo.id}`;
       this.label.textContent = todo.text;
       this.label.className = 'BodyPrincipal-label-task';
@@ -82,15 +82,15 @@
       this.checkboxDiv.appendChild(this.label);
       this.listItem.appendChild(this.checkboxDiv);
 
-      /* const buttonsDiv = document.createElement('div'); */
+     
       this.buttonsDiv.className = 'BodyPrincipal-buttons';
 
-      /* const editButton = document.createElement('button'); */
+
       this.editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
       this.editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
       this.buttonsDiv.appendChild(this.editButton);
 
-      /* const deleteButton = document.createElement('button'); */
+ 
       this.deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
       this.deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
       this.buttonsDiv.appendChild(this.deleteButton);
@@ -105,13 +105,12 @@
 
     },
 
+    updateTaskCounter: function () {
+      this.taskCounter.textContent = this.tasks.length;
+    },
+  
+
     renderList: function () {
-
-
-
-
-
-
       this.tasks.forEach((task) => {
         this.createItems(task);
 
@@ -132,7 +131,7 @@
       this.tasks.push(newTask);
       this.taskIdCounter++;
       this.createItems(newTask);
-
+      this.updateTaskCounter();
     },
 
     saveTasksToLocalStorage: function () {
@@ -143,63 +142,91 @@
       const savedTasks = localStorage.getItem('tasks');
       this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
     },
+    
+    clearList: function () {
+      while (this.list.firstChild) {
+        console.log(this.firstChild)
+        this.list.removeChild(this.list.firstChild);
+      }
+    },
 
+    updateListItem: function (listItem, task) {
+      const label = listItem.querySelector('label');
+      label.textContent = task.text;
+      label.style.display = '';
+      listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
+    },
+    
+   
     editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
       const label = listItem.querySelector('label');
-
+    
       const existingInput = listItem.querySelector('.BodyPrincipal-input-edit-task');
       const existingButton = listItem.querySelector('.BodyPrincipal-button-update-task');
-
+    
       existingInput?.remove();
       existingButton?.remove();
-
-
+    
+      this.inputEdit = document.createElement('input');
       this.inputEdit.type = 'text';
       this.inputEdit.value = task.text;
       this.inputEdit.className = 'BodyPrincipal-input-edit-task';
-
-
+    
+      this.updateButton = document.createElement('button');
       this.updateButton.className = 'BodyPrincipal-button-update-task';
       this.updateButton.textContent = 'Update';
-
-      listItem.insertBefore(this.inputEdit, label.nextSibling);
-      listItem.insertBefore(this.updateButton, label.nextSibling);
-
+    
+      const parentElement = label.parentNode;
+      parentElement.insertBefore(this.inputEdit, label.nextSibling);
+      parentElement.insertBefore(this.updateButton, label.nextSibling);
+    
       this.label.style.display = 'none';
-      this.listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
-
-      this.updateButton.addEventListener('click', () => {
-        const updatedTask = this.inputEdit.value.trim();
-        console.log("update")
-        updatedTask !== '' && ((task.text = updatedTask), this.renderList());
-        this.inputEdit.remove();
-        this.updateButton.remove();
-        label.style.display = '';
+      listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
+    
+      const self = this; // Capturamos el contexto actual
+    
+      this.updateButton.addEventListener('click', function () {
+        const updatedTask = self.inputEdit.value.trim();
+        if (updatedTask !== '') {
+          task.text = updatedTask;
+          self.updateListItem(listItem, task); // Actualizar solo este elemento de la lista
+          self.inputEdit.remove();
+          self.updateButton.remove();
+        }
+    
+        self.label.style.display = '';
         listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
         label.textContent = task.text;
       });
-
-      this.inputEdit.addEventListener('keydown', (event) => {
-        event.key === 'Enter' &&
-          ((updatedTask = this.inputEdit.value.trim()),
-            updatedTask !== '' &&
-            ((task.text = updatedTask), this.renderList()),
-            this.inputEdit.remove(),
-            this.updateButton.remove(),
-            (label.style.display = ''),
-            (listItem.querySelector('.BodyPrincipal-buttons').style.display = ''),
-            (label.textContent = task.text));
+    
+      this.inputEdit.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          const updatedTask = self.inputEdit.value.trim();
+          if (updatedTask !== '') {
+            task.text = updatedTask;
+            self.updateListItem(listItem, task); // Actualizar solo este elemento de la lista
+            self.inputEdit.remove();
+            self.updateButton.remove();
+          }
+    
+          self.label.style.display = '';
+          listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
+          label.textContent = task.text;
+        }
       });
     },
+    
+
+
 
     deleteTask: function (taskId) {
-      console.log("task", taskId)
-      const updatedTasks = this.tasks.filter((task) => task.id !== taskId);
-      console.log("editTas", this.tasks)/* 
-      taskIndex !== -1 && (this.tasks.splice(taskIndex, 1), this.renderList()); */
+      this.tasks = this.tasks.filter((task) => task.id !== taskId);
+      this.saveTasksToLocalStorage();
+      this.clearList();
+      this.renderList();
 
-
+      this.updateTaskCounter();
     },
 
     bindEvents: function () {

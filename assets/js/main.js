@@ -198,14 +198,65 @@
       });
     },
 
-    deleteTask: function (taskId) {
-      this.tasks = this.tasks.filter((task) => task.id !== taskId);
-      this.saveTasksToLocalStorage();
+    editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
-      if (listItem) {
-        listItem.remove();
-        this.updateTaskCounter();
-      }
+      const label = listItem.querySelector('label');
+    
+      const existingInput = listItem.querySelector('.BodyPrincipal-input-edit-task');
+      const existingButton = listItem.querySelector('.BodyPrincipal-button-update-task');
+    
+      existingInput?.remove();
+      existingButton?.remove();
+    
+      const inputEdit = document.createElement('input');
+      inputEdit.type = 'text';
+      inputEdit.value = task.text;
+      inputEdit.className = 'BodyPrincipal-input-edit-task';
+    
+      const updateButton = document.createElement('button');
+      updateButton.className = 'BodyPrincipal-button-update-task';
+      updateButton.textContent = 'Update';
+    
+      const parentElement = label.parentNode;
+      parentElement.insertBefore(inputEdit, label.nextSibling);
+      parentElement.insertBefore(updateButton, label.nextSibling);
+    
+      label.style.display = 'none';
+      listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
+    
+      const self = this;
+    
+      updateButton.addEventListener('click', function () {
+        const updatedTask = inputEdit.value.trim();
+        if (updatedTask !== '') {
+          task.text = updatedTask;
+          self.updateListItem(listItem, task);
+          inputEdit.remove();
+          updateButton.remove();
+          self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
+        }
+    
+        label.style.display = '';
+        listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
+        label.textContent = task.text;
+      });
+    
+      inputEdit.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          const updatedTask = inputEdit.value.trim();
+          if (updatedTask !== '') {
+            task.text = updatedTask;
+            self.updateListItem(listItem, task);
+            inputEdit.remove();
+            updateButton.remove();
+            self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
+          }
+    
+          label.style.display = '';
+          listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
+          label.textContent = task.text;
+        }
+      });
     },
     
 

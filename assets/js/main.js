@@ -201,9 +201,11 @@
     deleteTask: function (taskId) {
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
       this.saveTasksToLocalStorage();
-      this.clearList();
-      this.renderList();
-      this.updateTaskCounter();
+      const listItem = document.getElementById(`list-item-${taskId}`);
+      if (listItem) {
+        listItem.remove();
+        this.updateTaskCounter();
+      }
     },
     
 

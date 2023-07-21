@@ -29,28 +29,16 @@
     },
 
     createItems: function (todo) {
-
-
-
       this.inputEdit = document.createElement('input');
-
       this.buttonsDiv = document.createElement('div');
-
       this.editButton = document.createElement('button');
-
       this.deleteButton = document.createElement('button');
-
+      this.deleteButton.addEventListener('click', () => this.deleteTask(todo.id)); // Usar el ID de la tarea para eliminarla
       this.updateButton = document.createElement('button');
-
       this.listItem = document.createElement('li');
-
       this.checkboxDiv = document.createElement('div');
-
       this.label = document.createElement('label');
-
-      this.listContainer = this.list
-
-
+      this.listContainer = this.list;
 
       this.listItem.id = `list-item-${todo.id}`;
       this.listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center ${this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light'}`;
@@ -58,20 +46,19 @@
       this.checkboxDiv.className = 'BodyPrincipal-checkbox';
       const checkbox = document.createElement('div');
       checkbox.type = 'radio';
-      checkbox.className = `<fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task`;
+      checkbox.className = `fa-sharp fa-solid fa-circle-check BodyPrincipal-radio-task`;
       checkbox.id = `task-${todo.id}`;
 
       checkbox.addEventListener('click', () => {
         checkbox.checked = !checkbox.checked;
         const label = this.listItem.querySelector('label');
-        label.style.textDecoration = checkboxeleteButto.checked ? 'line-through' : 'none';
+        label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
         task.completed = checkbox.checked;
         this.saveTasksToLocalStorage();
       });
 
       this.checkboxDiv.appendChild(checkbox);
 
-    
       this.label.htmlFor = `task-${todo.id}`;
       this.label.textContent = todo.text;
       this.label.className = 'BodyPrincipal-label-task';
@@ -82,15 +69,12 @@
       this.checkboxDiv.appendChild(this.label);
       this.listItem.appendChild(this.checkboxDiv);
 
-     
       this.buttonsDiv.className = 'BodyPrincipal-buttons';
-
 
       this.editButton.className = 'BodyPrincipal-button-edit btn btn-outline-primary btn-sm mr-2';
       this.editButton.innerHTML = '<i class="BodyPrincipal-icon-edit fas fa-edit"></i>';
       this.buttonsDiv.appendChild(this.editButton);
 
- 
       this.deleteButton.className = 'BodyPrincipal-button-delete btn btn-outline-danger btn-sm';
       this.deleteButton.innerHTML = '<i class="BodyPrincipal-icon-trash fas fa-trash"></i>';
       this.buttonsDiv.appendChild(this.deleteButton);
@@ -100,21 +84,15 @@
 
       this.editButton.addEventListener('click', () => this.editTask(todo, todo.id));
       this.deleteButton.addEventListener('click', () => this.deleteTask(todo.id));
-
-
-
     },
 
     updateTaskCounter: function () {
       this.taskCounter.textContent = this.tasks.length;
     },
-  
 
     renderList: function () {
       this.tasks.forEach((task) => {
         this.createItems(task);
-
-
       });
 
       this.taskCounter.textContent = this.tasks.length;
@@ -132,6 +110,7 @@
       this.taskIdCounter++;
       this.createItems(newTask);
       this.updateTaskCounter();
+      this.saveTasksToLocalStorage();
     },
 
     saveTasksToLocalStorage: function () {
@@ -142,10 +121,9 @@
       const savedTasks = localStorage.getItem('tasks');
       this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
     },
-    
+
     clearList: function () {
       while (this.list.firstChild) {
-        console.log(this.firstChild)
         this.list.removeChild(this.list.firstChild);
       }
     },
@@ -156,8 +134,7 @@
       label.style.display = '';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
     },
-    
-   
+
     editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
       const label = listItem.querySelector('label');
@@ -184,15 +161,17 @@
       this.label.style.display = 'none';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
     
-      const self = this; // Capturamos el contexto actual
+      const self = this;
     
       this.updateButton.addEventListener('click', function () {
         const updatedTask = self.inputEdit.value.trim();
         if (updatedTask !== '') {
           task.text = updatedTask;
-          self.updateListItem(listItem, task); // Actualizar solo este elemento de la lista
+          self.updateListItem(listItem, task);
           self.inputEdit.remove();
           self.updateButton.remove();
+    
+          self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
         }
     
         self.label.style.display = '';
@@ -205,9 +184,11 @@
           const updatedTask = self.inputEdit.value.trim();
           if (updatedTask !== '') {
             task.text = updatedTask;
-            self.updateListItem(listItem, task); // Actualizar solo este elemento de la lista
+            self.updateListItem(listItem, task);
             self.inputEdit.remove();
             self.updateButton.remove();
+    
+            self.saveTasksToLocalStorage(); // Guardar la tarea actualizada en el localStorage
           }
     
           self.label.style.display = '';
@@ -216,18 +197,15 @@
         }
       });
     },
-    
-
-
 
     deleteTask: function (taskId) {
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
       this.saveTasksToLocalStorage();
       this.clearList();
       this.renderList();
-
       this.updateTaskCounter();
     },
+    
 
     bindEvents: function () {
       window.addEventListener('DOMContentLoaded', () => {

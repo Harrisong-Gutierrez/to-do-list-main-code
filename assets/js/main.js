@@ -1,8 +1,7 @@
 (function () {
   const module = {
-    tasks: [],
-    taskIdCounter: 0,
     cacheDom: function () {
+      this.tasks = [];
       this.formContainer = document.getElementById('form-container');
       this.form = document.getElementById('form-id');
       this.input = document.getElementById('input-id');
@@ -10,19 +9,26 @@
       this.icon = document.getElementById('icon-id');
       this.toggle = document.getElementById('toggle');
       this.labelToggle = document.getElementById('label_toggle');
-      this.headerBox = document.getElementById('header-box');
+      this.headerBox = document.getElementById('header-box')
+      console.log(this.headerBox)
+      this.mainBox = document.getElementById('container-to-do-list');
       this.taskCounter = document.getElementById('counter');
       this.list = document.getElementById('list-to-do');
       this.listItems = this.list ? this.list.querySelectorAll('li') : [];
       this.isDarkMode = this.toggle.checked;
     },
     main: function () {
-      this.cacheDom();
-      this.loadTasksFromLocalStorage();
-      this.bindEvents();
-      this.renderList(); // Llamar a renderList después de cargar los elementos del DOM
+      document.addEventListener('DOMContentLoaded', () => {
+        this.cacheDom();
+        this.loadTasksFromLocalStorage();
+        this.bindEvents();
+        this.renderList();
+        this.updateTaskCounter();
+      });
     },
-    
+    saveTasksToLocalStorage: function () {
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    },
     createItems: function (todo) {
       const inputEdit = document.createElement('input');
       const buttonsDiv = document.createElement('div');
@@ -85,33 +91,37 @@
         this.createItems(task);
       });
 
-      this.taskCounter.textContent = this.tasks.length;
+
+      let totalTasks =  this.tasks.length;
+
+      console.log(totalTasks)
+      console.log(this.tasks)
+
+        //  this.taskCounter.value="";
+
+         this.taskCounter.textContent = `${totalTasks}`;
+        console.log("estas son mis tareas:",this.taskCounter.textContent)
       this.saveTasksToLocalStorage();
     },
     addTaskToList: function (task) {
       const newTask = {
-        id: this.taskIdCounter,
         text: task,
         completed: false,
+        id: this.randomId(),
       };
 
       this.tasks.push(newTask);
-      this.taskIdCounter++;
       this.createItems(newTask);
-      this.updateTaskCounter();
+      
       this.saveTasksToLocalStorage();
-    },
-    saveTasksToLocalStorage: function () {
-      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+      this.updateTaskCounter();
     },
     loadTasksFromLocalStorage: function () {
       const savedTasks = localStorage.getItem('tasks');
       this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
     },
-    clearList: function () {
-      while (this.list.firstChild) {
-        this.list.removeChild(this.list.firstChild);
-      }
+    randomId: function (length = 6) {
+      return Math.random().toString(36).substring(2, length + 2);
     },
     updateListItem: function (listItem, task) {
       const label = listItem.querySelector('label');
@@ -165,6 +175,7 @@
       inputEdit.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           const updatedTask = inputEdit.value.trim();
+
           if (updatedTask !== '') {
             task.text = updatedTask;
             self.updateListItem(listItem, task);
@@ -180,9 +191,10 @@
       });
     },
     deleteTask: function (taskId) {
+      const listItem = document.getElementById(`list-item-${taskId}`);
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
       this.saveTasksToLocalStorage();
-      const listItem = document.getElementById(`list-item-${taskId}`);
+
       if (listItem) {
         listItem.remove();
         this.updateTaskCounter();
@@ -198,30 +210,26 @@
       this.addButton.addEventListener('click', (event) => {
         event.preventDefault();
         const inputValue = this.input.value.trim();
-        if (inputValue !== '') {
-          this.addTaskToList(inputValue);
-          this.input.value = '';
-        }
+        inputValue !== '' ? (this.addTaskToList(inputValue), this.input.value = '') : null;
       });
 
       this.input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          this.addButton.click();
-        }
+        event.key === 'Enter' ? (event.preventDefault(), this.addButton.click()) : null;
       });
 
       this.toggle.addEventListener('change', (event) => {
         const checked = event.target.checked;
+
         checked ? this.enableDarkMode() : this.disableDarkMode();
         localStorage.setItem('darkMode', checked.toString());
       });
     },
     enableDarkMode: function () {
       document.body.classList.add('BodyPrincipalDark');
-      this.headerBox.classList.add('BodyPrincipalDark-header-box');
+      this.mainBox.classList.add('BodyPrincipalDark-dark-main-box'); 
+      this.headerBox.classList.add('BodyPrincipalDark-header-box')
+      const taskListItems = this.list.querySelectorAll('li');
 
-      const taskListItems = this.listContainer.querySelectorAll('li');
       taskListItems.forEach((item) => {
         item.classList.remove('BodyPrincipal-list-custom-light');
         item.classList.add('BodyPrincipal-list-custom-dark');
@@ -232,14 +240,16 @@
     },
     disableDarkMode: function () {
       document.body.classList.remove('BodyPrincipalDark');
-      this.headerBox.classList.remove('BodyPrincipalDark-header-box');
+      this.mainBox.classList.remove('BodyPrincipalDark-dark-main-box');
+      this.headerBox.classList.remove('BodyPrincipalDark-header-box')
 
-      const taskListItems = this.listContainer.querySelectorAll('li');
+      const taskListItems = this.list.querySelectorAll('li');
       taskListItems.forEach((item) => {
         item.classList.remove('BodyPrincipal-list-custom-dark');
         item.classList.add('BodyPrincipal-list-custom-light');
       });
 
+      
       this.labelToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
       this.labelToggle.style.color = 'purple';
     },

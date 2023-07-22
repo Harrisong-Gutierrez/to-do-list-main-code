@@ -9473,18 +9473,4 @@ input#toggle {
   .BodyPrincipalDark-header-box {
     background-color: #1c3041; }
 
-.BodyPrincipal-list-custom-light:nth-child(2n) {
-  background-color: white; }
-
-.BodyPrincipal-list-custom-light:nth-child(2n+1) {
-  background-color: #f2f2f2; }
-
-.BodyPrincipal-list-custom-dark:nth-child(2n) {
-  background-color: #4982b4;
-  color: white; }
-
-.BodyPrincipal-list-custom-dark:nth-child(2n+1) {
-  background-color: #182938;
-  color: white; }
-
 /*# sourceMappingURL=main.css.map */

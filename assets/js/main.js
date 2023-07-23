@@ -40,7 +40,6 @@
       const checkbox = document.createElement('div');
 
       listItem.id = `list-item-${todo.id}`;
-
       listItem.className = `BodyPrincipal-list-custom d-flex justify-content-between align-items-center`;
 
       checkboxDiv.className = 'BodyPrincipal-checkbox';
@@ -82,20 +81,18 @@
 
       editButton.addEventListener('click', () => this.editTask(todo, todo.id));
       deleteButton.addEventListener('click', this.deleteTask.bind(this, todo.id));
-
     },
     updateTaskCounter: function () {
       this.taskCounter.textContent = this.tasks.length;
     },
     renderList: function () {
-      this.list.innerHTML = ''; // Limpiar la lista antes de volver a renderizar
+      this.list.innerHTML = '';
 
       this.tasks.forEach((task, index) => {
         this.createItems(task, index);
       });
 
       let totalTasks = this.tasks.length;
-
       this.taskCounter.textContent = `${totalTasks}`;
       this.saveTasksToLocalStorage();
     },
@@ -105,11 +102,10 @@
         completed: false,
         id: this.randomId(),
       };
-    
+
       this.tasks.push(newTask);
       this.createItems(newTask, this.tasks.length - 1);
 
-      // Actualizar clases para el modo oscuro o claro dependiendo de la intercalación
       const taskListItems = this.list.querySelectorAll('li');
       let lastColorIsDark = false;
 
@@ -119,18 +115,18 @@
         if (this.isDarkMode) {
           item.classList.remove('BodyPrincipal-list-custom-light');
           item.classList.add('BodyPrincipal-list-custom-dark');
-          item.style.backgroundColor = currentIsDark ? '#4982b4' : '#182938';
-          item.style.color = 'white';
+          item.style.backgroundColor = currentIsDark ? 'var(--background-table-dark-secundary)' : 'var(--background-table-dark-principal)';
+          item.style.color = 'var(--text-white-list)';
         } else {
           item.classList.remove('BodyPrincipal-list-custom-dark');
           item.classList.add('BodyPrincipal-list-custom-light');
-          item.style.backgroundColor = currentIsDark ? '#f2f2f2' : 'white';
-          item.style.color = 'black';
+          item.style.backgroundColor = currentIsDark ? 'var(--background-table-light-secundary)' : 'white';
+          item.style.color = 'var(--text-blak-list)';
         }
 
         lastColorIsDark = currentIsDark;
       });
-    
+
       this.saveTasksToLocalStorage();
       this.updateTaskCounter();
     },
@@ -147,7 +143,6 @@
       label.style.display = '';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
     },
-
     editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
       const label = listItem.querySelector('label');
@@ -167,9 +162,14 @@
       updateButton.className = 'BodyPrincipal-button-update-task';
       updateButton.textContent = 'Update';
 
+      const editFormContainer = document.createElement('div');
+      editFormContainer.className = 'BodyPrincipal-form-task';
+
+      editFormContainer.appendChild(inputEdit);
+      editFormContainer.appendChild(updateButton);
+
       const parentElement = label.parentNode;
-      parentElement.insertBefore(inputEdit, label.nextSibling);
-      parentElement.insertBefore(updateButton, label.nextSibling);
+      parentElement.insertBefore(editFormContainer, label.nextSibling);
 
       label.style.display = 'none';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = 'none';
@@ -194,7 +194,6 @@
       inputEdit.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           const updatedTask = inputEdit.value.trim();
-
           if (updatedTask !== '') {
             task.text = updatedTask;
             self.updateListItem(listItem, task);
@@ -213,25 +212,23 @@
       const listItem = document.getElementById(`list-item-${taskId}`);
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
       this.saveTasksToLocalStorage();
-    
+
       const parentList = listItem?.parentNode;
-      parentList?.removeChild(listItem); // Eliminamos solo el hijo correspondiente a la tarea eliminada.
-    
-      // Actualizamos clases y estilos de los elementos restantes para mantener la intercalación.
+      parentList?.removeChild(listItem);
+
       const taskListItems = this.list.querySelectorAll('li');
       taskListItems.forEach((item, index) => {
         const currentIsDark = this.isDarkMode ? index % 2 === 0 : index % 2 !== 0;
-    
+
         item.classList.remove(this.isDarkMode ? 'BodyPrincipal-list-custom-light' : 'BodyPrincipal-list-custom-dark');
         item.classList.add(this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light');
-    
-        item.style.backgroundColor = this.isDarkMode ? (currentIsDark ? '#4982b4' : '#182938') : (currentIsDark ? '#f2f2f2' : 'white');
-        item.style.color = this.isDarkMode ? 'white' : 'black';
+
+        item.style.backgroundColor = this.isDarkMode ? (currentIsDark ? 'var(--background-table-dark-secundary)' : 'var(--background-table-dark-principal)') : (currentIsDark ? 'var(--background-table-light-principal)' : 'white');
+        item.style.color = this.isDarkMode ? 'var(--text-white-list)' : 'var(--text-blak-list)';
       });
-    
+
       this.updateTaskCounter();
     },
-    
     bindEvents: function () {
       window.addEventListener('DOMContentLoaded', () => {
         const savedDarkMode = localStorage.getItem('darkMode');
@@ -253,8 +250,7 @@
       this.toggle.addEventListener('change', (event) => {
         const checked = event.target.checked;
 
-        this.isDarkMode = checked; // Actualizar el estado del modo oscuro
-
+        this.isDarkMode = checked;
         checked ? this.enableDarkMode() : this.disableDarkMode();
         localStorage.setItem('darkMode', checked.toString());
       });
@@ -268,12 +264,12 @@
       taskListItems.forEach((item, index) => {
         item.classList.remove('BodyPrincipal-list-custom-light');
         item.classList.add('BodyPrincipal-list-custom-dark');
-        item.style.backgroundColor = index % 2 === 0 ? '#4982b4' : '#182938';
-        item.style.color = 'white';
+        item.style.backgroundColor = index % 2 === 0 ? 'var(--background-table-dark-secundary)' : 'var(--background-table-dark-principal)';
+        item.style.color = 'var(--text-white-list)';
       });
 
       this.labelToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-      this.labelToggle.style.color = 'orange';
+      this.labelToggle.style.color = 'var(--orenge-sun)';
     },
     disableDarkMode: function () {
       document.body.classList.remove('BodyPrincipalDark');
@@ -284,12 +280,12 @@
       taskListItems.forEach((item, index) => {
         item.classList.remove('BodyPrincipal-list-custom-dark');
         item.classList.add('BodyPrincipal-list-custom-light');
-        item.style.backgroundColor = index % 2 === 0 ? '#f2f2f2' : 'white';
-        item.style.color = 'black';
+        item.style.backgroundColor = index % 2 === 0 ? 'var(--background-table-light-principal)' : 'white';
+        item.style.color = 'var(--text-blak-list)';
       });
 
       this.labelToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
-      this.labelToggle.style.color = 'purple';
+      this.labelToggle.style.color = 'var(--purple-moon)';
     },
   };
 

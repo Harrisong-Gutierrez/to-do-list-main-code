@@ -9328,6 +9328,16 @@ input#toggle {
   display: none;
   /* Oculta el checkbox nativo */ }
 
+:root {
+  --background-table-dark-secundary: rgba(73, 130, 180, 1);
+  --background-table-dark-principal:rgba(24, 41, 56, 1);
+  --text-white-list:rgba(255, 255, 255, 1);
+  --orenge-sun:rgb(210,149,31);
+  --background-table-light-secundary: rgba(255, 255, 255, 1);
+  --background-table-light-principal:rgb(242, 242, 242);
+  --text-blak-list:rgb(0,9,9);
+  --purple-moon:rgb(128,21,128); }
+
 .BodyPrincipal {
   height: auto;
   width: 100%;
@@ -9387,7 +9397,7 @@ input#toggle {
   .BodyPrincipal-list-custom-dark {
     width: auto;
     height: 76px;
-    border: 2px solid #d9d9d9; }
+    border: 2px solid #928e8e; }
   .BodyPrincipal-list-container {
     display: flex;
     justify-content: center;
@@ -9427,13 +9437,12 @@ input#toggle {
     line-height: 20px; }
   .BodyPrincipal-input-edit-task {
     background-color: white;
-    width: 488px;
+    width: 418px;
     height: 52px;
     border-radius: 8px 0 0 8px;
     border: 2px solid black;
     border-width: 2px 0 2px 2px;
-    padding-top: 8px;
-    margin-left: 1rem; }
+    padding-top: 8px; }
   .BodyPrincipal-button-update-task {
     background-color: #f89b1c;
     border: 2px;
@@ -9442,8 +9451,9 @@ input#toggle {
     color: white;
     font-size: 24px;
     font-weight: 400;
-    border-radius: 0 8px 8px 0;
-    margin-right: 1rem; }
+    border-radius: 0 8px 8px 0; }
+  .BodyPrincipal-form-task {
+    display: flex; }
   .BodyPrincipal-buttons {
     display: flex;
     align-items: center;
@@ -9452,7 +9462,8 @@ input#toggle {
   .BodyPrincipal-checkbox {
     display: flex;
     padding-left: 24px;
-    width: 45px; }
+    width: 45px;
+    align-items: center; }
   .BodyPrincipal-header-box-custom {
     justify-content: space-between; }
 
@@ -9472,15 +9483,5 @@ input#toggle {
     margin-bottom: 100px; }
   .BodyPrincipalDark-header-box {
     background-color: #1c3041; }
-  .BodyPrincipalDark .BodyPrincipal-list-custom-light:nth-child(2n) {
-    background-color: white; }
-  .BodyPrincipalDark .BodyPrincipal-list-custom-light:nth-child(2n+1) {
-    background-color: #f2f2f2; }
-  .BodyPrincipalDark .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
-    background-color: #182938;
-    color: white; }
-  .BodyPrincipalDark .BodyPrincipal-list-custom-dark:nth-child(2n) {
-    background-color: #4982b4;
-    color: white; }
 
 /*# sourceMappingURL=main.css.map */

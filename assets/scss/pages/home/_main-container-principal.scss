@@ -77,7 +77,7 @@
       &-list-custom-dark {
         width: auto;
         height: 76px;
-        border: 2px solid $boreder-list-color;
+        border: 2px solid $background-green;
     
     }
 
@@ -136,13 +136,13 @@
 
     &-input-edit-task {
         background-color: white;
-        width: 488px;
+        width: 418px;
         height: 52px;
         border-radius: 8px 0 0 8px;
         border: 2px solid black;
         border-width: 2px 0 2px 2px;
         padding-top: 8px;
-        margin-left: 1rem;
+
     }
 
     &-button-update-task {
@@ -154,7 +154,11 @@
         font-size: 24px;
         font-weight: 400;
         border-radius: 0 8px 8px 0;
-        margin-right: 1rem;
+       
+    }
+
+    &-form-task {
+        display: flex;
     }
 
     &-buttons {
@@ -168,6 +172,7 @@
         display: flex;
         padding-left: 24px;
         width: 45px;
+        align-items: center;
     }
 
     &-header-box-custom {

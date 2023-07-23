@@ -8,7 +8,7 @@
     }
 
     &-dark-main-box {
-        background-color: $background-main-box-dark;
+        background-color: $background-main-box-dark ;
         width: 730px;
         border-radius: 16px;
         border: 2px;
@@ -20,6 +20,30 @@
     &-header-box {
         background-color: $dark-header-box;
     }
+
+    .BodyPrincipal-list-custom-light:nth-child(2n) {
+      background-color:$background-white;
+   }
+   
+    .BodyPrincipal-list-custom-light:nth-child(2n+1) {
+       background-color: $background-list-color;
+  
+    }
+   
+ 
+    .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
+      background-color:$list-baground-first;
+      color: $text-white;
+ 
+   }
+ 
+ 
+   .BodyPrincipal-list-custom-dark:nth-child(2n) {
+      background-color:$list-baground-second ;
+      color: $text-white;
+   
+    }
+   
     
 
   
@@ -28,27 +52,5 @@
 //
 //  special clacess for 
 
-// .BodyPrincipal-list-custom-light:nth-child(2n) {
-//     background-color:$background-white;
-//   }
-  
-//   .BodyPrincipal-list-custom-light:nth-child(2n+1) {
-//      background-color: $background-list-color;
- 
-//   }
-  
 
-
-
-//   .BodyPrincipal-list-custom-dark:nth-child(2n) {
-//     background-color:$list-baground-second;
-//     color: $text-white;
-  
-//   }
-  
-//   .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
-//     background-color:$list-baground-first;
-//     color: $text-white;
-
-//   }
 // ///  

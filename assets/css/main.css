@@ -9472,5 +9472,15 @@ input#toggle {
     margin-bottom: 100px; }
   .BodyPrincipalDark-header-box {
     background-color: #1c3041; }
+  .BodyPrincipalDark .BodyPrincipal-list-custom-light:nth-child(2n) {
+    background-color: white; }
+  .BodyPrincipalDark .BodyPrincipal-list-custom-light:nth-child(2n+1) {
+    background-color: #f2f2f2; }
+  .BodyPrincipalDark .BodyPrincipal-list-custom-dark:nth-child(2n+1) {
+    background-color: #182938;
+    color: white; }
+  .BodyPrincipalDark .BodyPrincipal-list-custom-dark:nth-child(2n) {
+    background-color: #4982b4;
+    color: white; }
 
 /*# sourceMappingURL=main.css.map */

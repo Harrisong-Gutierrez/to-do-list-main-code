@@ -83,26 +83,6 @@
       editButton.addEventListener('click', () => this.editTask(todo, todo.id));
       deleteButton.addEventListener('click', this.deleteTask.bind(this, todo.id));
 
-      // Agregar clases específicas para el modo oscuro si está habilitado
-      if (this.isDarkMode) {
-        listItem.classList.add('BodyPrincipal-list-custom-dark');
-        if (this.listItems.length % 2 === 0) {
-          listItem.style.backgroundColor = '#4982b4';
-          listItem.style.color = 'white';
-        } else {
-          listItem.style.backgroundColor = '#182938';
-          listItem.style.color = 'white';
-        }
-      } else {
-        listItem.classList.add('BodyPrincipal-list-custom-light');
-        if (index % 2 === 0) {
-          listItem.style.backgroundColor = '#f2f2f2';
-          listItem.style.color = 'black';
-        } else {
-          listItem.style.backgroundColor = 'white';
-          listItem.style.color = 'black';
-        }
-      }
     },
     updateTaskCounter: function () {
       this.taskCounter.textContent = this.tasks.length;
@@ -128,21 +108,27 @@
     
       this.tasks.push(newTask);
       this.createItems(newTask, this.tasks.length - 1);
-    
+
       // Actualizar clases para el modo oscuro o claro dependiendo de la intercalación
       const taskListItems = this.list.querySelectorAll('li');
+      let lastColorIsDark = false;
+
       taskListItems.forEach((item, index) => {
+        const currentIsDark = this.isDarkMode ? index % 2 === 0 : index % 2 !== 0;
+
         if (this.isDarkMode) {
           item.classList.remove('BodyPrincipal-list-custom-light');
           item.classList.add('BodyPrincipal-list-custom-dark');
-          item.style.backgroundColor = index % 2 === 0 ? '#4982b4' : '#182938';
+          item.style.backgroundColor = currentIsDark ? '#4982b4' : '#182938';
           item.style.color = 'white';
         } else {
           item.classList.remove('BodyPrincipal-list-custom-dark');
           item.classList.add('BodyPrincipal-list-custom-light');
-          item.style.backgroundColor = index % 2 === 0 ? '#f2f2f2' : 'white';
+          item.style.backgroundColor = currentIsDark ? '#f2f2f2' : 'white';
           item.style.color = 'black';
         }
+
+        lastColorIsDark = currentIsDark;
       });
     
       this.saveTasksToLocalStorage();
@@ -161,6 +147,7 @@
       label.style.display = '';
       listItem.querySelector('.BodyPrincipal-buttons').style.display = '';
     },
+
     editTask: function (task, taskId) {
       const listItem = document.getElementById(`list-item-${taskId}`);
       const label = listItem.querySelector('label');
@@ -226,12 +213,25 @@
       const listItem = document.getElementById(`list-item-${taskId}`);
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
       this.saveTasksToLocalStorage();
-
-      if (listItem) {
-        listItem.remove();
-        this.updateTaskCounter();
-      }
+    
+      const parentList = listItem?.parentNode;
+      parentList?.removeChild(listItem); // Eliminamos solo el hijo correspondiente a la tarea eliminada.
+    
+      // Actualizamos clases y estilos de los elementos restantes para mantener la intercalación.
+      const taskListItems = this.list.querySelectorAll('li');
+      taskListItems.forEach((item, index) => {
+        const currentIsDark = this.isDarkMode ? index % 2 === 0 : index % 2 !== 0;
+    
+        item.classList.remove(this.isDarkMode ? 'BodyPrincipal-list-custom-light' : 'BodyPrincipal-list-custom-dark');
+        item.classList.add(this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light');
+    
+        item.style.backgroundColor = this.isDarkMode ? (currentIsDark ? '#4982b4' : '#182938') : (currentIsDark ? '#f2f2f2' : 'white');
+        item.style.color = this.isDarkMode ? 'white' : 'black';
+      });
+    
+      this.updateTaskCounter();
     },
+    
     bindEvents: function () {
       window.addEventListener('DOMContentLoaded', () => {
         const savedDarkMode = localStorage.getItem('darkMode');

@@ -120,7 +120,7 @@
         } else {
           item.classList.remove('BodyPrincipal-list-custom-dark');
           item.classList.add('BodyPrincipal-list-custom-light');
-          item.style.backgroundColor = currentIsDark ? 'var(--background-table-light-secundary)' : 'white';
+          item.style.backgroundColor = currentIsDark ? 'var(--background-table-light-secundary)' : 'var(--background-table-light-principal)';
           item.style.color = 'var(--text-blak-list)';
         }
 
@@ -223,7 +223,7 @@
         item.classList.remove(this.isDarkMode ? 'BodyPrincipal-list-custom-light' : 'BodyPrincipal-list-custom-dark');
         item.classList.add(this.isDarkMode ? 'BodyPrincipal-list-custom-dark' : 'BodyPrincipal-list-custom-light');
 
-        item.style.backgroundColor = this.isDarkMode ? (currentIsDark ? 'var(--background-table-dark-secundary)' : 'var(--background-table-dark-principal)') : (currentIsDark ? 'var(--background-table-light-principal)' : 'white');
+        item.style.backgroundColor = this.isDarkMode ? (currentIsDark ? 'var(--background-table-dark-secundary)' : 'var(--background-table-dark-principal)') : (currentIsDark ? 'var(--background-table-light-principal)' : 'var(--background-table-light-secundary)');
         item.style.color = this.isDarkMode ? 'var(--text-white-list)' : 'var(--text-blak-list)';
       });
 
@@ -280,7 +280,7 @@
       taskListItems.forEach((item, index) => {
         item.classList.remove('BodyPrincipal-list-custom-dark');
         item.classList.add('BodyPrincipal-list-custom-light');
-        item.style.backgroundColor = index % 2 === 0 ? 'var(--background-table-light-principal)' : 'white';
+        item.style.backgroundColor = index % 2 === 0 ? 'var(--background-table-light-principal)' : 'var(--background-table-light-secundary)';
         item.style.color = 'var(--text-blak-list)';
       });
 
